@@ -1,66 +1,100 @@
 /*
-    Q: Dividend.
-    S: Divisor.
-    R: aux register.
+    This function applies the Restoring Division Algorithm (Q / S) and prints via console the table with all of the steps.
+
+    Q: Dividend. (Dividendo).
+    S: Divisor. (Divisor).
+    R: Auxiliary register. (Registro auxiliar).
+
+    Example table composition with 4 bit registers:
+
+    R R R R | Q Q Q Q
+    S S S S |
+    --------+--------
+    
+    Previous to the algorithm.
+    We complement the Divisor (S) inside the method because we are going to do several subtractions.
+    And subtraction on the ALU is simply doing R + complement of Q.
+
+    Restoring Division Algorithm (ALU)
+      (1) Shift left (<<) once the Dividend register (Q) with 0 & the Aux register (R) with the most significant bit of Q.
+
+      (2) Leave on the aux register the result of subtracting itself to the Divisor (Adding the complement of S ).
+
+      (3) If the most significant bit of is 1 (negative number), change the least significant bit of the Dividend  (Q_0) to 0 and restore
+      the aux register adding the Divisor (S); else if it is 0, change the least significant bit of the Dividend (Q_0) to 1.
+
+      Repeat as many times as the register size.
+
+    Operations:
+    (<<) Shift left.
+    (-) Subtract.
+    (Res) Restore.
+    
+    @pre Q must be a String representing a binary number.
+    @pre S must be a String representing a binary number.
 */
 
 function restorationDivisionAlgorithm(Q, S) {
+    // Create arrays containing each digit as unique elements.
     var Qarr = String(Q).split('').map(Number);
     var SarrOrg = String(S).split('').map(Number);
-    
+      
+    // Print the division as arithmetic expression.
     console.log(Qarr.join('') + " / " + SarrOrg.join('') + "\n");
     
+    // Complement S.
     var Sarr = complement(SarrOrg);
+
     let registerSize = Qarr.length;
-    
+   
+    // End method if the register sizes does not match.
     if (Qarr.length != Sarr.length) {
         console.log("The registers have different sizes!");
         return;
     }
 
-        
+    // Initialize the Aux register R with all zeros.
     let Rarr = Qarr.map(() => 0);
+    
+    // Dynamic separation bar.
     var divisionBar = Qarr.map(() => "----").join('') + "-";
     divisionBar = divisionBar.slice(0, divisionBar.length/2) + 
                   "+" + divisionBar.slice((divisionBar.length/2)+1);
     
+    // Print the top of the table.
     console.log(Rarr.join(' ') + " | " + Qarr.join(' '));
     console.log(Sarr.join(' ') + " | ");
     console.log(divisionBar);
     
+    // Restoring Division Algorithm
     for (let i = 0; i < registerSize; i++) {
         
         // Shift (Aux ++ Q)
-        Rarr = [...Rarr.slice(1), Qarr[0]];
-        Qarr = [...Qarr.slice(1), 0];
-        let prevRarr = Rarr;
+        Rarr = [...Rarr.slice(1), Qarr[0]]; // (<<) R with Q_n.
+        Qarr = [...Qarr.slice(1), 0];   // (<<) Q with 0.
+        let prevRarr = Rarr; // Store the previous value of R.
         console.log(Rarr.join(' ') + " | " + Qarr.join(' ') + "  <<");
         
-        // Substract (Add complement of S to Aux)
+        // Subtract (Add complement of S to Aux)
         Rarr = binarySum(Rarr, Sarr);
         console.log(Rarr.join(' ') + " | " + Qarr.map(() => "  ").join('') + " -");
         
         
-        /* Restore 
-            If the most significative bit of Aux is 1:
-             - Change the least significative bit of Q to 0 & restore the
-                auxiliar register to its previous value.
-            If is 0
-             - Change the least significative bit of Q to 0
-        */
+        /* Restore or not*/
         if (Rarr[0] == 1) {
-            Rarr = prevRarr;
-            Qarr = [...Qarr.slice(0, registerSize-1), 0];
-            console.log(Rarr.join(' ') + " | " + Qarr.join(' ') + "  Res");
+            Rarr = prevRarr;  // Restore R to the previous value.
+            Qarr = [...Qarr.slice(0, registerSize-1), 0]; // Q_0 := 0.
+            console.log(Rarr.join(' ') + " | " + Qarr.join(' ') + "  Res");  
         } else {
-            Qarr = [...Qarr.slice(0, registerSize-1), 1];
+            Qarr = [...Qarr.slice(0, registerSize-1), 1];  // Q_0 := 1
             console.log(Rarr.join(' ') + " | " + Qarr.join(' '));
         }
         
-        console.log(divisionBar)
-        
+        // Print the separation bar
+        console.log(divisionBar);
     }
-
+    
+    // Print Quotient and Rest.
     let cociente = Qarr.join(' ');
     let resto = Rarr.join(' ');
     console.log("\nResto:    " + resto + " = " + toDecimal(Rarr));
@@ -69,6 +103,9 @@ function restorationDivisionAlgorithm(Q, S) {
     
 }
 
+/**
+ * Given a binary integer array, remove all the zeros to the left, avoiding JavaScript to interpret them as octal.
+ */
 function cleanLeftZeros(a) {
   let found = false;
   let firstZeroAt = -1;
@@ -83,7 +120,7 @@ function cleanLeftZeros(a) {
 
 
 /**
- * Takes two arrays represention binary numbers and returns 
+ * Takes two arrays representation binary numbers and returns 
  * their addition in an array.
  * It truncates the number to stay on the register size.
  */
@@ -112,6 +149,9 @@ function binarySum(a, b) {
     return sum;
 }
 
+/**
+ * Given a binary number represented in an array, return the array with the complement of that number. 
+ */
 function complement(a) {
     let arr = [];
     let found = false;
