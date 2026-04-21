@@ -60,9 +60,27 @@ function restorationDivisionAlgorithm(Q, S) {
         console.log(divisionBar)
         
     }
-    console.log("\nResto:    " + Rarr.join(' '));
-    console.log("Cociente: " + Qarr.join(' '));
+
+    let cociente = Qarr.join(' ');
+    let resto = Rarr.join(' ');
+    console.log("\nResto:    " + resto + " = " + toDecimal(Rarr));
+    console.log("Cociente: " + cociente + " = " + toDecimal(Qarr));
+
+    
 }
+
+function cleanLeftZeros(a) {
+  let found = false;
+  let firstZeroAt = -1;
+  for (let i = 0; i < a.length && !found; i++) {
+    if (a[i] == 1) {
+      found = true;
+      firstZeroAt = i;
+    }
+  }
+  return a.slice(firstZeroAt);
+}
+
 
 /**
  * Takes two arrays represention binary numbers and returns 
@@ -111,4 +129,35 @@ function complement(a) {
     return arr;
 }
 
-restorationDivisionAlgorithm("010001", "000010");  // 15 / 3
+/**
+ * Takes a binary number and returns it in decimal representation.
+ * Representation on radix 2 theorem.
+ */
+function toDecimal(a) {
+  a = cleanLeftZeros(a);
+  var arr = a;
+
+  for (var i = arr.length-1, j = 0; i >= 0; i--, j++) {
+    arr[i] = arr[i] * Math.pow(2, j);
+  }
+  
+  arr = arr.reduce((a, b) => a + b)
+  return arr;
+}
+
+
+/**
+ * Takes a decimal number and returns it in binary representation.
+ * Division algorithm.
+ * a = b*q + r
+ */
+function toBinary(a) {
+  var r = 0, s = 0;
+
+  // TODO: implement.
+
+  return undefined;
+}
+
+
+restorationDivisionAlgorithm("0101", "0010");
