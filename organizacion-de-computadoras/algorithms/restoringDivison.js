@@ -153,6 +153,7 @@ function binarySum(a, b) {
  * Given a binary number represented in an array, return the array with the complement of that number. 
  */
 function complement(a) {
+    let aCopy = [...a];
     let arr = [];
     let found = false;
     for (let i = a.length-1; i >= 0 && !found ; i--) {
@@ -163,8 +164,8 @@ function complement(a) {
         }
     }
     arr = [1, ...arr];
-    a.splice(a.length - arr.length);
-    arr = [...a.map((bit) => bit == 0 ? 1 : 0), ...arr];
+    aCopy.splice(a.length - arr.length);
+    arr = [...aCopy.map((bit) => bit == 0 ? 1 : 0), ...arr];
     
     return arr;
 }
