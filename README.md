@@ -1,4 +1,4 @@
-# University Notes Repository
+# Computer Science at UNRC, Argentina, 2026.
 
 ## Overview
 This repository contains notes for the second year of the Computer Science degree at the Universidad Nacional de Río Cuarto, Argentina. The notes cover various subjects and are aimed at providing concise and clear information to assist students in their studies.
@@ -8,22 +8,27 @@ The repository is structured into several folders, each corresponding to a cours
 
 ```
 /
-├── Algorithms
-│   ├── notes.md
-│   ├── examples.md
-├── Data Structures
-│   ├── notes.md
-│   ├── practicals.md
-├── Software Engineering
-│   ├── notes.md
-│   ├── assignments.md
-└── README.md
+├── Algoritmos y Estructuras de Datos II
+│   ├── practico/
+│   ├── teorico/
+├── Computación y Sociedad
+│   ├── teorico/
+│   ├── presentaciones/
+├── Inglés I
+│   ├── actividades/
+│   ├── practicas/
+├── Organizacion de Computadoras
+│   ├── algorithms/
+│   ├── falstad/
+│   ├── material/
+│   ├── practico/
+├── README.md
+└── LICENSE.md
 ```
 
 ## Course Descriptions
-- **Algorithms**: This course covers fundamental algorithms, their design, and analysis. Key topics include sorting algorithms, searching algorithms, and complexity analysis.
-- **Data Structures**: Focuses on the study of various data structures like arrays, linked lists, stacks, queues, trees, and graphs, along with their applications.
-- **Software Engineering**: Introduces the principles of software engineering, including software development lifecycles, methodologies, and best practices in managing software projects.
+- **Algorithms & Data Structures II**: This course covers fundamental algorithms, their design, and analysis. Key topics include sorting algorithms, searching algorithms, and complexity analysis.
+
 
 ## How to Use the Repo
 1. Clone the repository to your local machine using: 
