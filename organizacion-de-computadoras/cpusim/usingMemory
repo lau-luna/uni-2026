@@ -1,0 +1,6 @@
+;Toma una entrada, la guarda en memoria, la extrae de la memoria y la devuelve.
+In
+Save 0
+Load 0
+Out
+Stop
