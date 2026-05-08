@@ -1,0 +1,11 @@
+; Programa que suma y no termina
+
+leerNum:
+    In
+    Add tmp
+    Save tmp
+    Jump leerNum
+    Out
+    Stop
+
+tmp: .data 2 0;

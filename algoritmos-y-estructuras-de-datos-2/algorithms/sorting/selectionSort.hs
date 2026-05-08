@@ -1,6 +1,6 @@
 main :: IO ()
 main = do
-  print (mergeSort example)
+  print (selectionSort example)
 
 
 isSorted :: Ord a => [a] -> Bool
@@ -16,10 +16,10 @@ removeFirst x (y:ys)
   | x == y    = ys
   | otherwise = y : (removeFirst x ys)
 
-mergeSort :: Ord a => [a] -> [a]
-mergeSort []     = []
-mergeSort [x]    = [x]
-mergeSort (x:xs) = m : mergeSort (removeFirst m (x:xs))
+selectionSort :: Ord a => [a] -> [a]
+selectionSort []     = []
+selectionSort [x]    = [x]
+selectionSort (x:xs) = m : selectionSort (removeFirst m (x:xs))
   where m = minimum (x:xs)
   
 

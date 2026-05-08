@@ -1,0 +1,6 @@
+In
+Save tmp
+Load tmp
+Out
+
+tmp: .data 2 0;

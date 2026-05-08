@@ -1,0 +1,11 @@
+In
+Add tmp
+Save tmp
+In
+Add tmp
+Save tmp
+In
+Add tmp
+Out
+
+tmp: .data 2 0;

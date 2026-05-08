@@ -1,0 +1,16 @@
+; Programa que lee valores por la entrada hasta que se ingresa 0. Cuando es un 0
+; muestra por pantalla el resultado de la suma acumulada y termina.
+
+leer:
+    In
+    JumpZ fin
+    Add tmp
+    Save tmp
+    Jump leer
+
+fin:
+    Load tmp
+    Out
+    Stop
+
+tmp: .data 2 0;
