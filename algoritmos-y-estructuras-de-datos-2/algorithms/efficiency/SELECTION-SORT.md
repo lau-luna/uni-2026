@@ -45,7 +45,7 @@ $$T(n) = (n-1)c_1 + \frac{(n-1)n}{2}(c_2 + c_3) + (n-1)c_4$$
 
 ### Forma simplificada
 
-$$T(n) = \frac{(c_2 + c_3)}{2}n^2 + \left(c_1 + c_4 - \frac{c_2 + c_3}{2}\right)n - (c_1 + c_4)$$
+$$T(n) = c_2(\frac{n^2-n}{2}) + n \cdot c_4 $$
 
 El término dominante es $\frac{(c_2 + c_3)}{2}n^2$.
 

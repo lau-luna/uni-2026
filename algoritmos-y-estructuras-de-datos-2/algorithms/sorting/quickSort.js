@@ -1,32 +1,25 @@
-function quickSort(arr, p, r) {
-    if (p >= r) { return; }
-    
-    let i = -1, j = 0;
-    
-    // Partition
-    while (j < r)  {
-        if (arr[j] < arr[r]) {
-            i++;
-            swap(arr, i, j);
-            j++;
-        } else {
-            j++;
+function quickSort(A, p, r) {
+    if (p < r) {
+        let i = p-1;
+        for (let j = p; j < r; j++){
+            if (A[j] <= A[r]) {
+                i++;
+                exchange(A, i, j);
+            }
         }
+        let q = i+1;
+        exchange(A, q, r);
+        quickSort(A, p, q-1);
+        quickSort(A, q+1, r);
     }
-    let q = i+1;
-    swap(arr, q, r);
-    
-    quickSort(arr, p, q-1);
-    quickSort(arr, q+1, r)
-} 
-
-function swap (arr, i, j) {
-    let aux = arr[i];
-    arr[i] = arr[j];
-    arr[j] = aux;
 }
 
-let a = [1, 0, 4, -3, 5];
-quickSort(a, 0, a.length - 1);
+function exchange(A, i, j) {
+    let aux = A[i];
+    A[i] = A[j];
+    A[j] = aux;
+}
 
-console.log(a)
+let arr = [1, 3, 0, -20, -50, 20, -1, 0, 0, 42];
+quickSort(arr, 0, arr.length-1);
+console.log(arr);
