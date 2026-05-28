@@ -1,0 +1,9 @@
+; IN   que toma como parametro que registro quiero guardar la entrada
+
+In A
+Out A
+In B
+Out B
+Stop
+
+tmp: .data 2 0

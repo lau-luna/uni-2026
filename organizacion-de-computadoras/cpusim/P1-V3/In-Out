@@ -1,0 +1,7 @@
+In A
+Save A tmp
+Load B tmp
+Out B
+Stop
+
+tmp: .data 2 0

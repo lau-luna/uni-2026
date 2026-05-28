@@ -4,20 +4,22 @@
 ## Pseudocódigo
 
 ```
-SELECTION-SORT(A, n)
-1   for i = 1 to n-1
-2       min-index = i
-3       for j = i+1 to n
-4           if A[j] < A[min-index]
-5               min-index = j
-6       A[i] ↔ A[min-index]
+INSERTION-SORT(A, n)
+1   for i = 2 to n
+2       key = A[i]
+3       j = i - 1
+4       while j > 0 and A[j] > key
+5           A[j+1] = A[j]
+6           j = j - 1
+7       A[j] = key
 ```
 
-$$ T(n) = \sum_{i=0}^{n-2} (c_1 + \sum_{j=i+1}^{n-1} (c_2) + c_3) $$
-$$ T(n) = \frac{c_2n^2}{2} + \frac{2c_4n - 7c_2n}{2} + 2c_2 $$
-
-$$ T(n) = \frac{n^2}{2} + \frac{n}{2} + 2 $$
+$$ T(n) = \sum_{i=2}^{n} (1 + 1 \sum_{j = 1}^{i-1} (1+1) + 1)$$
+$$ T(n) = n^2 + 2n - 3$$
 $$ T(n) \in \Theta(n^2) $$
+
+
+$$ T(n) = 5^2 + 2*5 - 3 = 32$$
 
 ## Análisis de Tiempo de Ejecución
 
@@ -29,10 +31,13 @@ Recordemos que SWAP es de orden constante $O(1)$.
 
 |Línea | Operación | Costo | Worst case | Best case |
 |------|-----------|-------|------------|-----------|
-| 1 | `for i = n downto 2` | -| n | n |
-| 2 | `for j = 1 to i-1` | - | $\sum_{i = 2}^{n} (i-1)$ | $\sum_{i = 2}^{n} (i-1)$ |
-| 3 | `if A[j] < A[j+1]` | - | $\sum_{i = 2}^{n} (i-1)$ | $\sum_{i = 2}^{n} (i-1)$ |
-| 4 | `A[j] ↔ A[j+1]` | $c_1$ | $\sum_{i = 2}^{n} (i-1)$ | 0 |
+| 1 | `for i = 2 to n` | -| n | n |
+| 2 | `key = A[i]` | $c_1$ | n | n |
+| 3 | `j = i - 1` | $c_2$ | n | n |
+| 4 | `while j > 0 and A[j] > key` | - | n | n |
+| 5 | `A[j+1] = A[j]` | $c_3$| n | n |
+| 6 | `j = j - 1` | $c_4$ | n | n |
+| 7 | `A[j] = key` | $c_5$ | n | n |
 
 
 ### Worst Case

@@ -1,0 +1,9 @@
+; damn
+; toma un numero, toma otro y devuelve el primer numero
+In
+Move B A
+In
+Move A B
+Out
+
+tmp: .data 2 0

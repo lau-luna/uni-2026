@@ -1,0 +1,20 @@
+; Programa que toma un valor por consola. lo manda como parametro local de la subrutina Sub1
+; Sub1 toma el parametro y lo deja en B, le suma 1 
+; El programa devuelve el valor inicial + 1 al final.
+
+Main:
+    In A
+    Push A
+    Call Sub1
+    Out B
+    Stop
+
+Sub1:
+    Push BP
+    Move BP SP
+
+    LoadStack B 4
+    Add B 1 I
+    
+    Pop BP
+    Ret

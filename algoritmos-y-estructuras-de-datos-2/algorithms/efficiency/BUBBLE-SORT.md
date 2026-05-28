@@ -27,7 +27,7 @@ Recordemos que SWAP es de orden constante $O(1)$.
 
 ### Worst Case
 
-En el peor caso, siempre se hace el SWAP. Sería el caso en que el arreglo esté ordenado de manera invertida (de mayor a menor).
+En el peor caso, siempre se hace el SWAP. Sería el caso en que el arreglo esté ordenado de manera descendiente (de mayor a menor).
 
 
 

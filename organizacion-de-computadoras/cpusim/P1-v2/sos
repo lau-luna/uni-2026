@@ -1,0 +1,9 @@
+In A
+Move B A
+Save tmp B
+Load tmp B
+In A
+Move A B
+Out A
+
+tmp: .data 2 0

@@ -1,0 +1,25 @@
+Main:
+    In A
+    Push A
+    Call Fact
+    Pop A
+    Out A
+    Stop
+
+Fact:
+    ;-----  prologo
+    Push BP
+    Move BP SP
+    ;-----
+    LoadStack A 4
+    Add A -1 I
+    JumpZ end
+    Push A
+    Call Fact
+    Pop A
+    LoadStack B 4
+    Mult; A*B->A
+    SaveStack A 4
+    end:
+        Pop BP
+        Ret

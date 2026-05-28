@@ -1,0 +1,6 @@
+In A
+Save tmp A
+Add A -10 I
+Out A
+
+tmp: .data 2 0
