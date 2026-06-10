@@ -42,4 +42,11 @@ mapTree _ Nil = Nil
 mapTree f (Node hi r hd) = Node (mapTree f hi) (f r) (mapTree f hd) 
 
 arbol1 :: BinTree Int
-arbol1 = Node (Node (Node Nil 3 Nil) 2 Nil) 1 (Node Nil (-20) Nil)
+arbol1 = Node (Node (Node Nil 1 Nil) 3 (Node (Node Nil 4 Nil) 6 (Node Nil 7 Nil))) 8 (Node Nil 10 (Node (Node Nil 13 Nil) 14 Nil))
+
+arbol2 :: BinTree [Char]
+arbol2 = Node (Node Nil "C" Nil) "G" (Node (Node (Node Nil "H" Nil) "I" (Node Nil "J" Nil)) "K" (Node (Node Nil "L" Nil) "M" (Node Nil "N" Nil )))
+
+
+arbol3 :: BinTree [Char]
+arbol3 = Node (Node (Node (Node Nil "A" Nil) "B" (Node Nil "C" Nil)) "D" (Node Nil "F" (Node Nil "G" Nil))) "H" (Node (Node (Node Nil "I" Nil) "J" (Node Nil "K" Nil)) "L" (Node (Node Nil "M" Nil) "N" Nil))
