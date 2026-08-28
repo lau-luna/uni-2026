@@ -1,0 +1,113 @@
+@startuml
+
+enum TTurno {
+  Mañana
+  Tarde
+}
+
+enum TEstadoCuota {
+  Vencida
+  Por_Vencer
+  Pagada
+}
+
+class Destino {
+  nombreCiudad
+}
+
+class AtraccionTuristica {
+  nombre
+  descripcion
+  costoEstimado
+  edadRecomendada
+}
+
+Destino "1" -- "*" AtraccionTuristica : ofrece >
+
+class Traslado {
+  costo
+  duracion
+  distancia
+  disponible
+}
+
+class PaqueteTuristico {
+  fechaSalida
+}
+
+PaqueteTuristico "*" -- "1" Destino : tiene como >
+PaqueteTuristico "*" -- "*" AtraccionTuristica : incluye >
+
+class MetodoPago {
+  metodoPago
+}
+
+PaqueteTuristico "1" -- "1" MetodoPago : se paga con > 
+
+class PagoEfectivo {
+  porcentajeDescuento
+  montoTotalConDescuento
+  fechaPago
+}
+
+class PlanCuotas {
+  numeroPlan
+  fechaInicio
+  fechaFinalizacion
+}
+
+class Cuota {
+  monto
+  fecha
+  estadoCuota:TEstadoCuota
+}
+
+Cuota "2..20" --* "1" PlanCuotas
+
+MetodoPago <|-- PlanCuotas
+MetodoPago <|-- PagoEfectivo
+
+
+PaqueteTuristico "1" -- "1" Traslado : requiere >
+
+
+class Colegio {
+  nombre
+  direccion
+  telefono
+}
+
+class Alumno {
+  dni
+  nombre
+  apellido
+  direccion
+  curso
+  division
+  turno:TTurno
+}
+
+Alumno "*" -- "1" Colegio
+
+
+
+class FichaMedica {
+}
+
+class Enfermedad {
+  nombreEnfermedad
+  esCronica
+}
+
+class Medicacion {
+  nombreMedicamento
+  frecuencia
+}
+
+FichaMedica "1" *-- "0..*" Enfermedad : registra >
+FichaMedica "1" *-- "0..*" Medicacion : registra >
+Alumno "1" -- "0..1" FichaMedica : tiene >
+
+
+Alumno "*" -- "*" PaqueteTuristico : compra >
+@enduml

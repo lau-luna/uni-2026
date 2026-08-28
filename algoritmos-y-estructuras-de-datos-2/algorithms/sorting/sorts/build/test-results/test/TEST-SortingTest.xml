@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="SortingTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2026-06-29T18:42:36" hostname="archlinux" time="0.028">
+  <properties/>
+  <testcase name="testMergeSort()" classname="SortingTest" time="0.017"/>
+  <testcase name="testCountingSort()" classname="SortingTest" time="0.0"/>
+  <testcase name="testSelectionSort()" classname="SortingTest" time="0.001"/>
+  <testcase name="testInsertionSort()" classname="SortingTest" time="0.002"/>
+  <testcase name="testbubbleSort()" classname="SortingTest" time="0.001"/>
+  <testcase name="testQuickSort()" classname="SortingTest" time="0.001"/>
+  <system-out><![CDATA[[-3, 0, 1, 4, 5, 10]
+[-3, 0, 1, 4, 5, 10]
+[1, 2, 3]
+[1, 2, 3]
+[-3, 0, 1, 4, 5, 10]
+[1, 2, 3]
+[1, 2, 3]
+[-3, 0, 1, 4, 5, 10]
+[1, 2, 3]
+[1, 2, 3]
+[-3, 0, 1, 4, 5, 10]
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

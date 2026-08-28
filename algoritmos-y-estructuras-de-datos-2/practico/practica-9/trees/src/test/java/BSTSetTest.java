@@ -14,7 +14,7 @@ public class BSTSetTest
   @Test
   public void test1()
   {
-        SortedSet<Integer> set = new BSTSet2<Integer>();
+        SortedSet<Integer> set = new BSTSet3<Integer>();
         set.add(0);
         set.add(3);
         set.add(1);
@@ -31,7 +31,7 @@ public class BSTSetTest
     @Test
     public void test2()
     {
-        SortedSet<Integer> set = new BSTSet2<Integer>();
+        SortedSet<Integer> set = new BSTSet3<Integer>();
         assertThrows(NoSuchElementException.class, 
           ()-> set.removeMin());
     }
@@ -40,7 +40,7 @@ public class BSTSetTest
     @Test
     public void test3()
     {
-        SortedSet<Integer> set = new BSTSet2<Integer>();
+        SortedSet<Integer> set = new BSTSet3<Integer>();
         set.add(0);
         set.add(-2);
         set.removeMin();

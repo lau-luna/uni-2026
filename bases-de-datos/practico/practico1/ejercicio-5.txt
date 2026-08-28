@@ -1,0 +1,57 @@
+Tripulante(dni, nombre, apellido, fecha_nacimiento, edad)
+ PK dni
+
+Navegante(dni, codigo_categoria)
+  PK dni
+  FK dni a Tripulante
+  FK codigo_categoria a Categoria
+
+Categoria(codigo, descripcion)
+  PK codigo
+
+Administrativo(dni)
+  PK dni
+  FK dni a Tripulante
+
+Telefonos(dni, telefono)
+  PK dni, telefono
+  FK dni a Administrativo
+
+Gastronomico(dni, nombre_especialidad) 
+  PK dni
+  FK dni a Tripulante
+  FK nombre_especialidad a Especialidad
+
+Especialidad(nombre)
+  PK nombre
+
+Cliente(dni, nombre, apellido, direccion)
+  PK dni
+
+Viaje(codigo, descripcion, dni_capitan, origen, destino)
+  PK codigo
+  FK dni_capitan a Navegante
+  FK origen a Localidad
+  FK destino a Localidad
+
+Localidad(nombre_localidad)
+  PK nombre_localidad
+
+Navega(dni_navegante, codigo_viaje)
+  PK dni_navegante, codigo_viaje
+  FK dni_capitan a Navegante
+  FK codigo_viaje a Viaje
+
+Viaja(dni_cliente, codigo_viaje)
+  PK dni_cliente, codigo_viaje
+  FK dni_cliente a Cliente
+  FK codigo_viaje a Viaje
+
+Cocina(dni_gastronomico, codigo_viaje)
+  PK dni_gastronomico, codigo_viaje
+  FK dni_gastronomico a Gastronomico
+  FK codigo_viaje a Viaje
+
+Gasto(codigo, descripcion, monto, dni_gastronomico, codigo_viaje)
+  PK codigo
+  FK (dni_gastronomico, codigo_viaje) a Cocina 

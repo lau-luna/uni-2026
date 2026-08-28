@@ -14,7 +14,7 @@ public class AVLSetTest
   @Test
   public void test1()
   {
-        SortedSet<Integer> set = new AVLSet<Integer>();
+        SortedSet<Integer> set = new AVLSet2<Integer>();
         set.add(0);
         set.add(3);
         set.add(1);
@@ -31,7 +31,7 @@ public class AVLSetTest
     @Test
     public void test2()
     {
-        SortedSet<Integer> set = new AVLSet<Integer>();
+        SortedSet<Integer> set = new AVLSet2<Integer>();
         assertThrows(NoSuchElementException.class, 
           ()-> set.removeMin());
     }
@@ -40,7 +40,7 @@ public class AVLSetTest
     @Test
     public void test3()
     {
-        SortedSet<Integer> set = new AVLSet<Integer>();
+        SortedSet<Integer> set = new AVLSet2<Integer>();
         set.add(0);
         set.add(-2);
         set.removeMin();

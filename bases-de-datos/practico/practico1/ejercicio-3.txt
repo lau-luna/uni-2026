@@ -1,0 +1,58 @@
+Personal(dni, nombre, apellido, fecha_nacimiento)
+  PK dni
+
+Telefonos_Personal(dni, telefono)
+  PK dni, telefono
+  FK dni de Personal
+
+Enfermero(dni, sueldo)
+  PK dni
+  FK dni de Personal
+
+Horario(dia, dni_enfermero, horario_entrada, horario_salida)
+  PK dia, dni_enfermero
+  FK dia de Dia
+  FK dni_enfermero de Enfermero
+
+Dia(dia)
+  PK dia
+
+Medico(dni, codigo_especialidad)
+  PK dni
+  FK dni de Personal
+  FK codigo_especialidad de Especialidad
+
+Especialidad(codigo, descripcion)
+  PK codigo
+
+Administrativo(dni, nivel_estudio)
+  PK dni
+  FK dni de Personal
+  FK nivel_estudio de Nivel_Estudio
+
+Nivel_Estudio(nivel_estudio)
+  PK nivel_estudio
+
+Paciente(dni, nombre, apellido, dni_medico, codigo_obra)
+  PK dni
+  FK dni_medico de Medico
+  FK codigo_obra de Obra_Social
+
+Obra_Social(codigo_obra, nombre)
+  PK codigo_obra
+
+Internacion(codigo_internacion, descripcion, dni_paciente, dni_medico, dni_administrativo)
+  PK codigo_internacion
+  FK dni_paciente de Paciente
+  FK dni_medico de Medico
+  FK dni_administrativo de Administrativo
+  
+Informe(numero_informe, descripcion, fecha, codigo_internacion, dni_enfermero)
+  PK numero_informe
+  FK codigo_internacion de Internacion
+  FK dni_enfermero a Enfermero
+
+Atiende(dni_enfermero, codigo_internacion)
+  PK dni_enfermero, codigo_internacion
+  FK dni_enfermero de Enfermero
+  FK codigo_internacion de Internacion

@@ -1,0 +1,40 @@
+Personal(dni, nombre, apellido)
+  PK dni
+
+Telefono(dni_personal, telefono)
+  PK (dni_personal, telefono)
+  FK dni_personal a Personal
+
+Administrativo(dni_personal, codigo_cargo)
+  PK dni_personal
+  FK dni_personal a Personal
+  FK codigo_cargo a Cargo
+
+Cargo(codigo, descripcion)
+  PK codigo
+
+Maestranza(dni_personal)
+  PK dni_personal
+  FK dni_personal a Personal
+
+Bonificacion(dni_maestranza, nro, monto)
+  PK (dni_maestranza, nro)
+  FK dni_maestranza a Maestranza
+
+Empresa(cuit, nombre, direccion, dni_administrativo)
+  PK cuit
+  FK dni_administrativo a Administrativo
+
+Realiza(dni_maestranza, cuit_empresa)
+  PK (dni_maestranza, cuit_empresa)
+  FK dni_maestranza a Maestranza
+  FK cuit_empresa a Empresa
+
+Fecha(fecha)
+  PK fecha
+
+Tiene(dni_maestranza, cuit_empresa, horario_entrada, horario_salida, fecha)
+  PK (dni_maestranza, cuit_empresa, fecha)
+  FK (dni_maestranza, cuit_empresa) a Realiza
+  FK fecha a Fecha
+  

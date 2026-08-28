@@ -1,0 +1,45 @@
+@startuml
+ 
+object "p1 : Paciente" as p1 {
+  dni=16789045
+  nombre="Susana"
+  apellido="Ávila"
+  celular=156345789
+  email="savila@hotmail.com"
+  numeroAfiliado=8769
+}
+
+object "c1 : Comprobante" as c1 {
+  identificador=1567
+  diagnostico="Anemia"
+  fecha=20/04/2023
+  montoMutual=890
+  montoPaciente=410
+}
+
+p1 -- c1
+
+object "e1 : Estudio" as e1 {
+  nombre="Hemograma"
+  codigo=456
+  descripcion="Conteo de glóbulos rojos"
+  costo=1300
+}
+
+object "r1 : Resultado" as r1 {
+  descripcion="4.460.000 eritrocitos"
+  valoracion="Normal"
+}
+
+e1 -- r1
+c1 -- r1
+
+object "b1 : Bioquimico" as b1 {
+  nombre="Luis"
+  apellido="Oberto"
+  nroMatricula=9870
+}
+
+b1 -- e1
+
+@enduml

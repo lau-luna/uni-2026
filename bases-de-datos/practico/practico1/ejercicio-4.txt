@@ -1,0 +1,47 @@
+Personal(dni, nombre, apellido, direccion)
+  PK dni
+
+Administrativo(dni_personal, salario)
+  PK dni_personal
+  FK dni_personal a Personal
+
+Maestranza(dni_personal, codigo_especialidad)
+  PK dni_personal
+  FK dni_personal a Personal
+  FK codigo_especialidad a Especialdidad
+
+Especialidad(codigo_especialidad, descripcion)
+  PK codigo_especialidad
+
+Premio(dni_maestranza, nro_premio, monto)
+  PK dni_maestranza, nro_premio
+  FK dni_maestranza a Maestranza
+
+Gastronomico(dni_personal, nivel_estudio)
+  PK dni_personal
+  FK dni_personal a Personal
+  FK nivel_estudio a Nivel_Estudio
+
+Nivel_Estudio(nivel_estudio)
+ PK nivel_estudio
+
+Estadia(codigo, descripcion, fecha_inicio_estadia, fecha_fin_estadia)
+  PK codigo
+
+A_Cargo(dni_administrativo, codigo_estadia)
+ PK dni_administrativo, codigo_estadia
+ FK dni_administrativo a Administrativo
+ FK codigo_estadia a Estadia
+
+Atiende(dni_maestranza, codigo_estadia)
+ PK dni_maestranza, codigo_estadia 
+ FK dni_maestranza a Maestranza
+ FK codigo_estadia a Estadia
+
+Cocina(dni_gastronomico, codigo_estadia)
+  PK dni_gastronomico, codigo_estadia
+  FK dni_gastronomico a Gastronomico
+  FK codigo_estadia a Estadia
+
+Cliente(dni, nombre, apellido, direccion, fecha_nacimiento)
+  PK dni

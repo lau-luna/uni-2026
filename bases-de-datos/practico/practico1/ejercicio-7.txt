@@ -1,0 +1,46 @@
+Persona(dni, nombre, apellido, direccion)
+  PK dni
+
+Profesional(dni_persona, matricula)
+  PK dni_persona
+  FK dni_persona a Persona
+
+Telefono(dni_profesional, telefono)
+  PK (dni_profesional, telefono)
+  FK dni_profesional a Profesional
+
+Premio(numero, dni_profesional, fecha, monto)
+  PK (numero, dni_profesional)
+  FK dni_profesional a Profesional
+
+Secretaria(dni_persona, salario)
+  PK dni_persona
+  FK dni_persona a Persona
+
+Recaudacion(fecha, dni_secretaria, monto)
+  PK (fecha, dni_secretaria)
+  FK dni_secretaria a Secretaria
+
+Cliente(dni_persona, telefono)
+  PK dni_persona
+  FK dni_persona a Persona
+
+Tratamiento(codigo, nombre, dni_secretaria, dni_cliente)
+  PK codigo
+  FK dni_secretaria a Secretaria
+  FK dni_cliente a Cliente
+
+Realiza(dni_profesional, codigo_tratamiento)
+  PK (dni_profesional, codigo_tratamiento)
+  FK dni_profesional a Profesional
+  FK codigo_tratamiento a Tratamiento
+
+Insumo(numero_insumo, descripcion)
+  PK numero_insumo
+
+Utiliza(numero_insumo, dni_profesional, codigo_tratamiento, cantidad)
+  PK (numero_insumo, dni_profesional, codigo_tratamiento)
+  FK (dni_profesional, codigo_tratamiento) a Realiza
+  FK numero_insumo a Insumo
+
+

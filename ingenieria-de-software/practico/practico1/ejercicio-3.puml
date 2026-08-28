@@ -1,0 +1,119 @@
+@startuml
+
+
+class Localidad {
+  nombre
+  codigo postal
+}
+
+abstract class Persona {
+  dni
+  nombre
+  apellido
+  celular
+}
+
+Localidad "1" -- "*" Persona
+
+class Bioquimico {
+  nroMatricula
+}
+
+class Paciente {
+  numeroAfiliado
+  email
+}
+
+note top of Paciente
+  El enunciado da a entender que el numero de afiliado 
+  es un atributo del comprobante, pero es en realidad un 
+  atributo de paciente. Como es un valor unico por cada 
+  paciente, se repetiría en los comprobantes de un 
+  mismo paciente.
+  Además, en el escenario se registra el numero de 
+  afiliado junto con los datos del paciente.
+endnote
+
+Persona <|-- Bioquimico
+Persona <|-- Paciente
+
+class Estudio {
+  nombre
+  codigo
+  descripcion
+ costo
+}
+
+Bioquimico "1..*" -- "1..*" Estudio : realiza >
+
+abstract class Reactivo {
+  nombre
+  codigo
+}
+
+Estudio "*" -- "1..3" Reactivo
+
+class Estado {
+  estado:TEstado
+}
+
+(Reactivo, Estudio) .. Estado
+
+
+class ReactivoNacional {
+}
+
+class Marca {
+  nombre
+}
+
+ReactivoNacional "*" -- "1" Marca
+
+class ReactivoInternacional {
+  moneda:TMoneda
+}
+
+class Importador {
+  nombre
+}
+
+Reactivo <|-- ReactivoNacional
+Reactivo <|-- ReactivoInternacional
+ReactivoInternacional "*" --  "1" Importador
+ReactivoInternacional "*" -- "1" Bioquimico : < responsable
+
+
+class Comprobante {
+  identificador
+  diagnostico
+  fecha
+  montoMutual
+  montoPaciente
+}
+
+Comprobante "1" -- "*" Estudio : tiene >
+Paciente "1" -- "*" Comprobante : recibe >
+
+class Resultado {
+  descripcion
+  valoracion
+}
+
+(Estudio, Comprobante) .. Resultado
+
+class Usuario {
+  nombreUsuario
+  contraseña
+}
+
+enum TMoneda {
+  Peso
+  Dolar
+  Euro
+}
+
+enum TEstado {
+ Frio
+ Temperatura Ambiente
+}
+@enduml

@@ -1,0 +1,28 @@
+Persona(dni, nombre, apellido, telefono, direccion)
+  PK dni
+
+Inquilino(dni, ingreso_mensual)
+  PK dni
+  FK dni a Persona
+
+Propietario(dni)
+  PK dni
+  FK dni a Persona
+
+Inmueble(id_inmueble, direccion, cant_ambientes, precio_alquiler, dni_propietario)
+  PK id_inmueble a Inmueble
+  FK dni_propietario a Propietario
+
+Casa(id_inmueble, cant_pisos, cant_vehiculos_cochera)
+  FK id_inmueble a Inmueble
+
+Departamento(id_inmueble, piso, nro_depto)
+  FK id_inmueble a Inmueble
+
+Local(id_inmueble, cant_oficinas)
+  FK id_inmueble a Inmueble
+
+Alquila(id_inmueble, dni_inquilino)
+  PK id_inmueble, dni_inquilino
+  FK id_inmueble a Inmueble
+  FK dni_inquilino a Inquilino

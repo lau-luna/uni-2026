@@ -1,0 +1,51 @@
+@startuml
+skinparam linetype line
+
+' -----------------------------------------------
+' ESTILOS DE ELEMENTOS
+' -----------------------------------------------
+
+' Entidad Normal y Entidad Débil
+rectangle "EMPLEADO" as emp
+rectangle "  FAMILIAR  " as fam #line.bold {
+}
+
+' Relaciones (Normal y Débil)
+
+' Atributo Clave (Subrayado)
+usecase "(<u>dni</u>)" as a_dni
+
+' Atributo Simple
+usecase "(nombre)" as a_nom
+
+' Atributo Multivaluado (Borde Grueso)
+usecase "(telefono)" as a_tel #line.bold
+
+' Atributo Calculado (Línea de Puntos)
+usecase "(edad)" as a_edad #line.dotted
+
+' Atributo Compuesto
+usecase "(direccion)" as a_dir
+usecase "(calle)" as a_calle
+usecase "(numero)" as a_num
+
+' -----------------------------------------------
+' CONEXIONES
+' -----------------------------------------------
+
+' Atributos a Entidad EMPLEADO
+emp -- a_dni
+emp -- a_nom
+emp -- a_tel
+emp -- a_edad
+emp -- a_dir
+
+' Subatributos a Atributo Compuesto
+a_dir -- a_calle
+a_dir -- a_num
+
+' Relación Débil entre Empleado y Familiar
+emp "1" == rel_car
+rel_car == "N" fam
+
+@enduml
