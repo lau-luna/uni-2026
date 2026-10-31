@@ -1,0 +1,98 @@
+@startuml
+
+
+
+object "o1:Obra" as o1{
+  titulo = "Sombras en el viento"
+  ISBN = "978-987-111-222-3"
+}
+
+object "a1:Autor" as a1 {
+  dni = 25123456
+  nombre = "Mariana"
+  apellido = "López"
+  direccion = "San Martín 450"
+  celular = "155-123456"
+  email = "mlopez@correo.com"
+}
+
+a1 -- o1 : autor principal >
+
+object "a2:Autor" as a2 {
+  dni = 27654321
+  nombre = "Tomás"
+  apellido = "García"
+  email = "tgarcia@correo.com"
+}
+
+a2 -- o1 : coautor >
+
+object "e1:Edicion" as e1 {
+  nroEdicion = 2
+  año = 2024
+}
+
+e1 -- o1 : edicion >
+
+object "c1:Correctora" as c1 {
+  dni = 30111222
+  nombre = "Silvia"
+  apellido = "Torres"
+  nroEmpleado = 12
+  tipoTrabajo = TTrabajo::Remoto
+}
+
+o1 -- c1 : < corrige
+
+object "d1:Diseñador" as d1 {
+  nombre = "Marcos"
+  apellido = "Paz"
+  nroEmpleado = 14
+  dediacion = TDedicacion::JornadaCompleta
+}
+
+object "d2:Diseñador" as d2 {
+  nombre = "Julieta"
+  apellido = "Ruiz"
+  nroEmpleado = 15
+  tipoTrabajo = TJornada::MediaJornada
+}
+
+o1 -- d1 : < edicion grafica
+o1 -- d2 : < edicion grafica
+
+object "i1:PersonalImprenta" as i1 {
+  nombre = "Roberto"
+  apellido = "Silva"
+  nroEmpleado = 20
+  montoAdicional = 35000.00
+}
+
+object "eq1:Equipamiento" as eq1 {
+  fechaCompra = 10/01/2021
+  fechaVenceGarantia = 10/01/2026
+}
+
+object "m1:Marca" as m1 {
+  nombreMarca = "HP"
+}
+
+m1 -- eq1 : < tiene
+i1 -- eq1 : maneja >
+
+object "ins1:Insumo" as ins1 {
+  tipo = TInsumo::Toner
+  cantidadStock = 8
+  fechaUltimaCompra = 02/08/2024
+}
+
+eq1 -- ins1 : usa >
+
+object "col1:Colocacion" as col1 {
+  fechaColocacion = 15/08/2024
+}
+
+eq1 -- col1
+col1 -- ins1
+
+@enduml

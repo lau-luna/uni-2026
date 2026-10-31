@@ -1,0 +1,18 @@
+Socio(DNI, nombre, direccion)
+  PK dni
+
+Telefono(DNI, telefono)
+  PK (DNI, telefono)
+  FK DNI a Socio
+
+Libro(ISBN, titulo, año_edicion)
+  PK ISBN
+
+Ejemplar(ISBN, nro_ejemplar, estado)
+  PK (ISBN, nro_ejemplar)
+  FK ISBN a Libro
+
+Presta(DNI, ISBN, nro_ejemplar, fecha_prestamo)
+  PK (DNI, ISBN, nro_ejemplar)
+  FK DNI a Socio
+  FK ISBN a Libro

@@ -1,0 +1,24 @@
+Director(pasaporte, estilo_visual, nombre_real)
+  PK pasaporte
+
+Productor(pasaporte, presupuesto_max, nombre_real)
+  PK pasaporte
+
+Pelicula(codigo_peli, titulo, pasaporte_director)
+  PK codigo_peli
+  FK pasaporte_director a Director
+
+Idiomas(codigo_peli, idioma)
+  PK (codigo_peli, idioma)
+  FK codigo_peli a Pelicula
+
+Rollo_Cinta(codigo_peli, nro_rollo, duracion_segundos)
+  PK (codigo_peli, nro_rollo)
+  FK codigo_peli a Pelicula
+
+Financia(codigo_peli, pasaporte_productor, monto_invertido)
+  PK (codigo_peli, pasaporte_director)
+  FK codigo_peli a Pelicula
+  FK pasaporte_productor a Productor
+
+

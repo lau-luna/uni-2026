@@ -1,0 +1,37 @@
+Jugador(nickname, nombre_real)
+  PK nickname
+
+Red_Social(nickname, red_social)
+  PK (nickname, red_social)
+  FK nickname a Jugador
+
+Profesional(nickname, sueldo)
+  PK nickname
+  FK nickname a Jugador
+
+Amateur(nickname, puntos_ranking)
+  PK nickname
+  FK nickname a Jugador
+
+Torneo(cod_torneo, region)
+  PK cod_torneo
+  FK region a Region
+
+Region(region)
+  PK region
+
+Partida(cod_torneo, nro_partida, duracion_mins)
+  PK (cod_torneo, nro_partida)
+  FK cod_torneo a Torneo
+
+Compite(nickname, cod_torneo, nro_partida, puntaje, ip_servidor)
+  PK (nickname, cod_torneo, nro_partida)
+  FK (cod_torneo, nro_partida) a Partida
+  FK ip_servidor a Servidor
+
+Servidor(ip_servidor, pais)
+  PK ip_servidor
+  FK pais a Pais
+
+Pais(pais)
+  PK pais

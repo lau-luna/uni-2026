@@ -1,0 +1,39 @@
+@startuml
+skinparam linetype ortho
+
+abstract class Aggregate {
++ iterator() : Iterator
+}
+
+class ConcreteAggregate {
++ iterator() : Iterator
+}
+
+Aggregate <|-down- ConcreteAggregate
+
+abstract class Iterator {
++ first() : element
++ next() : element
++ isDone() : bool
++ currentItem() : element
+}
+
+class ConcreteIterator {
+- current : int
++ first() : element
++ next() : element
++ isDone() : bool
++ currentItem() : element
+}
+
+Iterator <|-down- ConcreteIterator
+
+ConcreteAggregate "1" <-left- "1" ConcreteIterator
+ConcreteAggregate .right.> ConcreteIterator : create
+
+class Client
+
+Client .up.> ConcreteAggregate : use
+Client .up.> ConcreteIterator : use
+
+@enduml

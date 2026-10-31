@@ -24,6 +24,10 @@ class Paciente {
   email
 }
 
+class Pedido {
+
+}
+
 note top of Paciente
   El enunciado da a entender que el numero de afiliado 
   es un atributo del comprobante, pero es en realidad un 
@@ -53,11 +57,11 @@ abstract class Reactivo {
 
 Estudio "*" -- "1..3" Reactivo
 
-class Estado {
+class EstadoReactivo {
   estado:TEstado
 }
 
-(Reactivo, Estudio) .. Estado
+(Reactivo, Estudio) .. EstadoReactivo
 
 
 class ReactivoNacional {
@@ -70,7 +74,6 @@ class Marca {
 ReactivoNacional "*" -- "1" Marca
 
 class ReactivoInternacional {
-  moneda:TMoneda
 }
 
 class Importador {
@@ -79,32 +82,41 @@ class Importador {
 
 Reactivo <|-- ReactivoNacional
 Reactivo <|-- ReactivoInternacional
-ReactivoInternacional "*" --  "1" Importador
+ReactivoInternacional "*" --  "*" Importador : < provee
 ReactivoInternacional "*" -- "1" Bioquimico : < responsable
+
+class MonedaReactivo {
+  moneda:TMoneda
+}
+
+(ReactivoInternacional, Importador) .. MonedaReactivo
 
 
 class Comprobante {
   identificador
-  diagnostico
   fecha
   montoMutual
   montoPaciente
 }
 
-Comprobante "1" -- "*" Estudio : tiene >
-Paciente "1" -- "*" Comprobante : recibe >
+Pedido "1" *-- "1" Comprobante : tiene >
+
+Pedido "*" -- "1..*" Estudio : tiene >
+Paciente "1" -- "*" Pedido : recibe >
 
 class Resultado {
   descripcion
   valoracion
 }
 
-(Estudio, Comprobante) .. Resultado
+(Estudio, Pedido) .. Resultado
 
 class Usuario {
   nombreUsuario
   contraseña
 }
+
+Usuario "*" -- "*" Paciente : accede a los datos >
 
 enum TMoneda {
   Peso
@@ -113,7 +125,7 @@ enum TMoneda {
 }
 
 enum TEstado {
- Frio
- Temperatura Ambiente
+ TemperaturaFrio
+ TemperaturaAmbiente
 }
 @enduml

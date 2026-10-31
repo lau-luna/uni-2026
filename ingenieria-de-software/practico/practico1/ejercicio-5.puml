@@ -31,6 +31,8 @@ class Traslado {
   disponible
 }
 
+Traslado "*" -- "1" Destino :  destino >
+
 class PaqueteTuristico {
   fechaSalida
 }
@@ -104,8 +106,8 @@ class Medicacion {
   frecuencia
 }
 
-FichaMedica "1" *-- "0..*" Enfermedad : registra >
-FichaMedica "1" *-- "0..*" Medicacion : registra >
+FichaMedica "1" -- "0..*" Enfermedad : registra >
+(FichaMedica, Enfermedad) .. Medicacion
 Alumno "1" -- "0..1" FichaMedica : tiene >
 
 

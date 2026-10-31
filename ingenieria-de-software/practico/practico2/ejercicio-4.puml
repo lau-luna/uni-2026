@@ -1,0 +1,95 @@
+@startuml
+
+skinparam linetype ortho
+
+abstract class Empleado {
+  nombre
+  apellido
+  cuil
+  direccion
+  nroCelular
+}
+
+class Localidad {
+  codigoPostal
+  nombre
+}
+
+Empleado "*" -- "1" Localidad : reside >
+
+class Cajero {
+
+}
+
+class Vendedor {
+
+}
+
+class Repartidor {
+
+}
+
+Empleado <|-- Cajero
+Empleado <|-- Vendedor
+Empleado <|-- Repartidor
+
+class Seccion {
+  codigo
+  nroInterno
+}
+
+(Seccion, Vendedor) .. PeriodoEncargado : Encargado
+
+class PeriodoEncargado {
+  fechaInicio
+  fechaFin
+}
+
+Seccion "*" -- "2" Vendedor : < trabaja
+
+class SeccionAlimentosFrescos {
+  cantHeladerasEnFuncionamiento
+}
+
+class SeccionFerreteria {
+  tamanioMetrosCuadrados
+}
+
+class SeccionAlmacen {
+  cantChanguitos
+  cantCanastos
+}
+
+Seccion <|-- SeccionAlimentosFrescos
+Seccion <|-- SeccionFerreteria
+Seccion <|-- SeccionAlmacen
+
+
+
+class IComponentePromocion {
+  + calcularCosto()
+}
+
+class Producto {
+  id
+  descripcion
+  stockDisponible
+  precioUnitario
+
+  + calcularCosto() : float
+}
+
+
+Seccion "1" -- "*" Producto : se vende >
+
+
+class Promocion {
+  + children: IComponentePromocion[]
+}
+
+Promocion o-- IComponentePromocion
+
+IComponentePromocion <|.. Producto
+IComponentePromocion <|.. Promocion
+
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+skinparam linetype ortho
+
+class Client {
+}
+
+abstract class ServiceInterface {
+  + request()
+}
+
+ServiceInterface <-- Client
+
+class Proxy {
+  - realService : Service
+  + Proxy(s : Service)
+  + checkAccess()
+  + request()
+}
+
+note bottom of Proxy
+  if (checkAccess()) {
+    realService.request()
+  }
+endNote
+
+class Service {
+  + request()
+}
+
+Proxy o-- Service
+ServiceInterface <|.. Proxy
+ServiceInterface <|.. Service 
+@enduml

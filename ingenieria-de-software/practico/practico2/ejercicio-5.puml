@@ -1,0 +1,41 @@
+@startuml
+
+class IUsuarioChat {
+  + recibe(String de, String msg)
+  + envia(String de, String msg)
+}
+
+class ISalonDeChat {
+  + registra(Usuario participante)
+  + envia(String de, String a, String msg)
+}
+
+ISalonDeChat <-- IUsuarioChat
+
+class Usuario {
+  - String nombre
+  
+  + recibe(String de, String msg)
+  + envia(String de, String msg)
+}
+
+IUsuarioChat <|.. Usuario
+
+class SalonDeChat {
+  - HashMap<String, Usuario> participantes
+
+  + registra(Usuario participante)
+  + envia(String de, String a, String msg)
+}
+
+ISalonDeChat <|.. SalonDeChat
+
+SalonDeChat "1" -- "*" Usuario
+
+note bottom of Usuario
+  El patron de diseño usado es el Mediator
+  Usuario es un ConcreteColleague
+endNote
+
+
+@enduml

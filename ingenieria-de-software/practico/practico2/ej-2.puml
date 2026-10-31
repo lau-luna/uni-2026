@@ -1,0 +1,121 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 120
+skinparam ranksep 80
+
+enum TTel {
+  FIJO
+  CELULAR
+}
+
+enum TCategoria {
+  INICIAL
+  INTERMEDIA
+  PROFESIONAL
+}
+
+abstract class Cliente {
+  direccion : String
+}
+
+class ClientePersona {
+  nombre : String
+  apellido : String
+  dni : int
+}
+
+class Empresa {
+  razonSocial : String
+  cuit : String
+}
+
+Cliente <|-down- ClientePersona
+Cliente <|-down- Empresa
+
+class Localidad {
+  codigoPostal : String
+  nombre : String
+}
+
+class Telefono {
+  numero : String
+  tipo : TTel
+}
+
+ClientePersona "*" -left-> "1" Localidad : reside
+ClientePersona "1" -down-> "0..2" Telefono : telefonos
+Empresa "1" -left-> "0..1" Telefono : tiene
+
+
+class Empleado {
+  nombre : String
+  apellido : String
+  dni : int
+  direccion : String
+  nroEmpleado : int
+}
+
+
+class Repartidor {
+
+}
+
+class Administrativo {
+  categoria : TCategoria
+}
+
+Empleado <|-down- Repartidor
+Empleado <|-down- Administrativo 
+
+class Periodo {
+  fechaInicio : date
+  fechaFin : date
+}
+
+Repartidor "*" -down-> "1" Localidad : reparte
+(Repartidor, Localidad) .right. Periodo
+
+
+abstract class CreadorEnvio {
+  # crearEnvio() : Envio
+}
+
+class CreadorEnvioCarta {
+  # crearEnvio() : Envio
+}
+
+class CreadorEnvioEncomienda {
+  # crearEnvio() : Envio
+}
+
+abstract class Envio {
+  - identificador : int
+  - direccionDestinatario : String
+  + calcularCosto() : float
+}
+
+class EnvioCarta {
+  tamanio : String
+  + calcularCosto() : float
+}
+
+class EnvioEncomienda {
+  peso : float 
+  + calcularCosto() : float
+}
+
+CreadorEnvio <|-down- CreadorEnvioCarta
+CreadorEnvio <|-down- CreadorEnvioEncomienda
+
+Envio <|-down- EnvioCarta
+Envio <|-down- EnvioEncomienda
+
+CreadorEnvioCarta ..> EnvioCarta : create
+CreadorEnvioEncomienda ..> EnvioEncomienda : create
+
+Cliente "1" <-right- "*" Envio : realizo 
+Envio "*" -up-> "1" Repartidor : asignado
+
+Administrativo .right.> CreadorEnvio : use
+Administrativo "1" -down-> "*" Envio : genera
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+skinparam linetype ortho
+
+class Client {}
+
+abstract class Component {
+  + doStuff()
+}
+
+class Leaf {
+  + doStuff()
+}
+
+class Composite {
+  - elements : Component[]
+  + add(c : Component)
+  + remove(c : Component)
+  + getChild(n) : Component
+  + doStuff()
+}
+
+Component <|.. Leaf
+Component <|.. Composite 
+
+Composite o-- Component : elements
+
+Component <-- Client
+
+
+@enduml

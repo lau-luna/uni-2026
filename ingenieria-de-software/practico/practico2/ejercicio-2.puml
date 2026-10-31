@@ -1,0 +1,118 @@
+@startuml
+skinparam linetype ortho
+
+enum TTel {
+  Fijo
+  Celular
+}
+
+enum TCategoria {
+  Inicial
+  Intermedia
+  Profesional
+}
+
+abstract class Cliente {
+}
+
+class Persona {
+  dni
+  nombre
+  apellido
+  direccion
+}
+
+class Localidad {
+  nombre
+}
+
+class Telefono {
+  numero
+  tipo : TTel
+}
+
+Localidad "1" -- "*" Persona : < reside
+Persona "1" -- "0..2" Telefono : tiene >
+
+class Empresa {
+  cuit
+  razonSocial
+  direccion
+  telefono
+}
+
+Cliente <|-- Persona
+Cliente <|-- Empresa
+
+abstract class Empleado {
+  dni
+  nombre
+  apellido
+  direccion
+  nroEmpleado
+}
+
+class Repartidor {
+
+}
+
+Repartidor "*" -- "1" Localidad : reparte en >
+
+class Periodo {
+  fechaInicio
+  fechaFin
+}
+
+(Repartidor, Localidad) .. Periodo 
+
+class Administrativo {
+  categoria : TCategoria
+}
+
+Empleado <|-- Repartidor
+Empleado <|-- Administrativo
+
+
+abstract class Envio {
+  id
+  direccionDestino
+  + calcularCosto()
+}
+
+Cliente "1" -- "*" Envio
+Repartidor "1" -- "*" Envio
+
+class EnvioCarta {
+  tamaño
+  + calcularCosto()
+}
+
+class EnvioEncomienda {
+  peso
+  + calcularCosto()
+}
+
+Envio <|-- EnvioCarta
+Envio <|-- EnvioEncomienda
+
+class CreadorEnvio {
+  + crearEnvio() : Envio
+}
+
+class CreadorEnvioCarta {
+  + crearEnvio() : Envio
+}
+
+class CreadorEnvioEncomienda {
+  + crearEnvio() : Envio
+}
+
+CreadorEnvio <|-- CreadorEnvioCarta
+CreadorEnvio <|-- CreadorEnvioEncomienda
+
+CreadorEnvioCarta ..> EnvioCarta : create
+CreadorEnvioEncomienda ..> EnvioEncomienda : create
+
+Administrativo ..> CreadorEnvio : usa >
+
+@enduml

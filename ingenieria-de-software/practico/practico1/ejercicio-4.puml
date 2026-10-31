@@ -16,7 +16,7 @@ enum TInsumo {
   Tóner
 }
 
-class Persona {
+abstract class Persona {
   dni
   nombre
   apellido
@@ -24,7 +24,7 @@ class Persona {
   celular
 }
 
-class Empleado {
+abstract class Empleado {
   nroEmpleado
 }
 
@@ -76,6 +76,11 @@ class Autor {
 
 Persona <|-- Autor
 
+note top of Autor
+  El autor principal está 
+  incluido en los coautores
+endNote
+
 class Obra {
   titulo
   ISBN
@@ -92,6 +97,6 @@ class Edicion {
 
 Diseñador "2" -- "*" Edicion : diseña >
 
-Obra "1" *-- "0..*" Edicion : posee >
+Obra "1" o-- "0..*" Edicion : posee >
 
 @enduml

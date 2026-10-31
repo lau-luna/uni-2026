@@ -1,0 +1,74 @@
+Empleado(dni, nombre, apellido, fecha_nacimiento, edad)
+  PK dni
+
+Instalador(dni)
+  PK dni
+  FK dni a Empleado
+
+Telefonos(dni_instalador, telefono)
+  PK (dni_instalador, telefono)
+  FK dni_instalador a Instalador
+
+Dia(dia)
+  PK dia
+
+Horario(dni, dia, h_entrada, h_salida)
+  PK (dni, dia)
+  FK dni a Instalador
+  FK dia a Dia
+
+
+Vendedor(dni)
+  PK dni
+  FK dni a Empleado
+
+
+Monitoreador(dni, nivel)
+  PK dni
+  FK dni a Empleado
+  FK nivel a Nivel_Estudio
+
+Nivel_Estudio(nivel)
+  PK nivel
+
+
+Cobrador(dni, porcentaje_ganancia)
+  PK dni
+  FK dni a Empleado
+
+
+Cliente(dni, nombre, apellido, dni_cobrador)
+  PK dni
+  FK dni_cobrador a Cobrador
+
+Vehiculo(patente, dni_cliente, modelo)
+  PK patente
+  FK dni_cliente a Cliente
+  FK modelo a Modelo
+
+Modelo(modelo, marca)
+  PK modelo
+  FK marca a Marca
+
+Marca(marca)
+  PK marca
+
+Equipo(codigo, descripcion, patente, dni_instalador, dni_vendedor)
+  PK codigo
+  FK patente a Vehiculo
+  FK dni_instalador a Instalador
+  FK dni_vendedor a Vendedor
+
+Chip(codigo_equipo, numero, precio)
+  PK (codigo_equipo, numero)
+  FK codigo_equipo a Equipo
+
+Monitorea(codigo_equipo, dni_monitoreador)
+  PK (codigo_equipo, dni_monitoreador)
+  FK codigo_equipo a Equipo
+  FK dni_monitoreador a Monitoreador
+
+
+Alerta(nro_alerta, fecha, dni_monitoreador, codigo_equipo)
+  PK nro_alerta
+  FK (codigo_equipo, dni_monitoreador) a Monitorea

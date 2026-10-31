@@ -1,0 +1,114 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 120
+skinparam ranksep 80
+
+abstract class Empleado {
+  nombre : String
+  apellido : String
+  cuil : String
+  direccion : String
+  celular : String
+}
+
+class Localidad {
+  codigoPostal : int
+  nombre : String
+}
+
+Localidad "1" <-right- "*" Empleado : reside
+
+class Cajero {
+  
+}
+
+class Vendedor {
+}
+
+class Repartidor {
+
+}
+
+Empleado <|-down- Cajero
+Empleado <|-down- Vendedor
+Empleado <|-down- Repartidor
+
+class Seccion {
+  codigo : int
+  nroInterno : int
+}
+
+class Periodo {
+  fechaInicio : date
+  fechaFin : date
+}
+
+Seccion "*" -up-> "1" Vendedor : encargado
+Periodo .. (Seccion, Vendedor)
+Seccion "*" -up-> "2" Vendedor : asignado
+
+class SeccionAlimentosFrescos {
+  cantHeladerasFuncionando : int
+}
+
+class SeccionFerreteria {
+  tamanioMetrosCuadrados : float
+}
+
+class SeccionAlmacen {
+  cantChanguitos : int
+  cantCanastos : int
+}
+
+Seccion <|-down- SeccionAlimentosFrescos
+Seccion <|-down- SeccionFerreteria
+Seccion <|-down- SeccionAlmacen
+
+
+
+abstract class ElementoVenta {
+  + calcularCosto() : float
+}
+
+class Promocion {
+  codigo : int
+  nombre : String
+  fechaInicio : date
+  fechaFin : date
+  porcentajeDescuento : int
+  + agregar(e : ElementoVenta) : void
+  + quitar(e : ElementoVenta) : void
+  + obtener(h : int) : ElementoVenta
+  + calcularCosto() : float
+}
+
+class Producto {
+  id : int
+  descripcion : String
+  stockDisponible : int
+  precioUnitario : float
+  + calcularCosto() : float
+}
+
+Seccion "1" -right-> "*" Producto 
+
+ElementoVenta <|-down- Promocion
+ElementoVenta <|-down- Producto
+Promocion "0..*" o-- "1..*" ElementoVenta
+
+class Remito {
+  numero : int
+  fecha : date
+}
+
+class Cliente {
+  nombre : String
+  apellido : String
+  telefono : String
+  direccion : String
+}
+
+Remito "*" --> "1" Cliente : tiene
+Remito "*" --> "1" Repartidor : asignado
+Remito "*" --> "1..*" ElementoVenta : compra
+@enduml

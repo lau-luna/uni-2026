@@ -1,0 +1,5 @@
+a) σ Mes_Ult_Movim == 'AGOSTO' (Articulo)
+
+b) σ Mes_Ult_Movim != 'JUNIO' (Articulo)
+
+c) σ cantidad <= Stock_Min (Articulo)

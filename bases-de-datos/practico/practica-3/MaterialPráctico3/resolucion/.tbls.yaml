@@ -1,0 +1,8 @@
+dsn: postgresql://postgres@127.0.0.1:5432/facu?sslmode=disable
+docPath: docs
+
+include:
+  - "ejercicio1.*"
+  - "ejercicio2.*"
+  - "ejercicio3.*"
+  - "ejercicio4.*"

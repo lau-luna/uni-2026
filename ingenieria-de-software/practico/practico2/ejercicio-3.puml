@@ -1,0 +1,103 @@
+@startuml
+skinparam linetype ortho
+
+enum TZona {
+  Sur
+  Norte
+  Centro
+  Este
+  Oeste
+}
+
+
+
+class Lote {
+  nroLote
+  coordenadasGeograficas
+}
+
+Lote "1" -- "1" Actividad : se realiza >
+
+class Campo {
+  tamHectareas
+  zona : TZona
+}
+
+class Dueño {
+  dni
+  nombre
+  apellido
+}
+
+class Localidad {
+  nombre
+}
+
+Campo "*" -- "1" Localidad : está en >
+Campo "1" *-- "*" Lote : < pertence
+Campo "*" -- "1" Dueño : tiene >
+
+class Actividad {
+
+}
+
+class ActividadAgricola {
+  kgCerealObtenido
+  fechaSiembra
+  fechaCosecha
+}
+
+class TipoCereal {
+  tipoCereal
+}
+
+ActividadAgricola "*" -- "1" TipoCereal : tiene >
+
+class ActividadGanadera {
+  fechaInicio
+  fechaFin
+  cantPromedioAnimales
+}
+
+class TipoAnimal {
+  tipoAnimal
+}
+
+ActividadGanadera "*" -- "1..*" TipoAnimal : cria >
+
+Actividad <|-- ActividadAgricola
+Actividad <|-- ActividadGanadera
+
+abstract class ImagenInterface {
+  + descargaCalidadAlta()
+  + descargaCalidadMedia()
+  + descargaCalidadBaja()
+}
+
+class ImagenSatelital {
+  tamaño
+  + descargaCalidadAlta()
+  + descargaCalidadMedia()
+  + descargaCalidadBaja()
+}
+
+class ImagenSatelitalProxy {
+  - imagen : ImagenSatelital
+  tamaño
+  + descargaCalidadAlta()
+  + descargaCalidadMedia()
+  + descargaCalidadBaja()
+}
+
+ImagenInterface <|.. ImagenSatelital
+ImagenInterface <|.. ImagenSatelitalProxy
+ImagenSatelitalProxy "1" o-- "1" ImagenSatelital
+
+ImagenSatelital "*" -- "1" Lote
+
+class Cliente {
+}
+
+Cliente ..> ImagenInterface 
+
+@enduml

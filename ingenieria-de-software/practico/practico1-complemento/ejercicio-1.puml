@@ -1,0 +1,100 @@
+@startuml
+' Elimina los íconos de visibilidad (los circulitos de colores) para limpiar la vista
+skinparam classAttributeIconSize 0
+' Fuerza a que las líneas se dibujen con ángulos rectos en lugar de diagonales
+
+class Persona {
+  dni
+  nombreApellido
+  telefono
+}
+
+class Cliente {
+  direccion
+  mail
+}
+
+class Personal {
+  fechaContratacion
+}
+
+Persona <|-- Cliente
+Persona <|-- Personal
+
+class Asistente {
+  turno : TTurno
+}
+
+class Veterinario {
+  nroMatricula
+}
+
+Personal <|-- Asistente
+Personal <|-- Veterinario
+
+class EspecialidadClinica {
+  nombreEspecialidad
+}
+EspecialidadClinica "1" -right- "*" Veterinario : < tiene
+
+class Mascota {
+  nombre
+  fechaNacimiento
+}
+Cliente "1" -down- "1..*" Mascota : tiene >
+
+class Especie {
+  nombreEspecie
+}
+class Raza {
+  nombreRaza
+}
+class HistoriaClinica {
+  nroHistoriaClinica
+}
+
+Mascota "*" -up- "1" Especie : pertenece >
+Mascota "*" -down- "1" Raza : es de >
+Mascota "1" -down- "*" HistoriaClinica : tiene >
+
+class Consulta {
+  fecha
+  diagnostico
+  costoTotal
+}
+
+Mascota "1" -right- "*" Consulta : < pertenece
+Consulta "*" -up- "1" Veterinario : atiende >
+Consulta "*" -up- "0..1" Asistente : ayuda >
+
+class InsumoMedico {
+  codigo
+  descripcion
+  cantidadStock
+}
+
+class GastoInsumo {
+  cantidadInsumoGastado
+}
+
+Consulta "*" -down- "*" InsumoMedico : usa >
+GastoInsumo .. (Consulta, InsumoMedico)
+
+note bottom of HistoriaClinica
+  Se pone historia clinica como clase
+  separada, porque la misma mascota
+  puede tener diferentes numeros
+  de historia clinica. Dado el caso
+  de que la misma mascota es
+  atendida, se deberia registrar
+  de nuevo si el numero de 
+  historia clina fuera un
+  atributo de la clase Mascota
+endNote
+
+enum TTurno {
+  Mañana
+  Tarde
+}
+
+@enduml

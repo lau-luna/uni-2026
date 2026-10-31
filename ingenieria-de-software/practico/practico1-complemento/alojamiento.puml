@@ -1,0 +1,70 @@
+@startuml
+class Hotel {
+  nombre
+  direccion
+}
+
+class Habitacion {
+  numero
+  capacidad
+}
+
+class Cliente {
+  dni
+  nombre
+}
+
+class Reserva {
+  nroReserva
+  fechaInicio
+  cantidadDias
+}
+
+Hotel "1" *-- "1..*" Habitacion : tiene >
+Cliente "1" -- "0..*" Reserva : realiza >
+Reserva "*" -- "1..*" Habitacion : incluye >
+
+note bottom of Habitacion
+  Escenario a modelar:
+El cliente "Carlos Gómez" (DNI 44555666) se hospeda en el Hotel 
+"Las Sierras" (ubicado en Av. Principal 100). Carlos concreta la reserva 
+número "R-901" por un total de 3 días, ingresando el 15 de 
+noviembre. En dicha reserva, a Carlos se le asignan específicamente
+dos piezas del hotel: la habitación número 10 (con capacidad para 2 personas)
+y la habitación número 11 (con capacidad para 3 personas). 
+endNote
+
+object "c1 : Cliente" as c1 {
+  dni = 44555666
+  nombre = "Carlos Gómez"
+}
+
+object "h1 : Hotel" as h1 {
+  nombre = "Las Sierras"
+  direccion = "Av. Principal 100"
+}
+
+object "r1 : Reserva" as r1 {
+  nroReserva = "R-901"
+  fechaInicio = "15 de noviembre"
+  cantidadDias = 3
+}
+
+c1 -- r1
+
+object "p1 : Habitacion" as p1 {
+  numero = 10
+  capacidad = 2
+}
+
+object "p2 : Habitacion" as p2 {
+  numero = 11
+  capacidad = 3
+}
+
+p1 -- h1
+p2 -- h1
+
+r1 -- p1
+r1 -- p2
+@enduml

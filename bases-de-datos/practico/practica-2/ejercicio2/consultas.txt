@@ -1,0 +1,3 @@
+a) π dni (σ Nombre_Curso == "BASES DE DATOS" (Realiza))
+
+b) π Nombre_y_Apellido, nota (Alumno ⋈ Realiza ⋈ σ Cantidad_Maxima_Alumnos == 25 (Curso))

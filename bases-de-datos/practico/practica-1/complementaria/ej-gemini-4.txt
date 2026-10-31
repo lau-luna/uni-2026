@@ -1,0 +1,12 @@
+Empleado(legajo, nombre, cargo, codigo_dep, legajo_jefe)
+  PK legajo
+  FK codigo_dep a Departamento
+  FK legajo_jefe a Empleado
+
+Departamento(codigo_dep, nombre_dep)
+  PK codigo_dep
+
+Remplaza_A(legajo_empleado_1, legajo_empleado_2)
+  PK (legajo_empleado_1, legajo_empleado_2)
+  FK legajo_empleado_1 a Empleado
+  FK legajo_empleado_2 a Empleado

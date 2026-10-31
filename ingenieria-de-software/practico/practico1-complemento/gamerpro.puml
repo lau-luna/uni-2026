@@ -1,0 +1,76 @@
+@startuml
+
+class Persona {
+  dni
+  nombre
+  apellido
+}
+
+class Jugador {
+  nickname
+}
+
+class Pais {
+  nombre
+}
+
+Jugador "*" -- "1" Pais : nacionalidad >
+
+class Analista {
+  sueldoBase
+}
+
+class Especialidad {
+  nombre
+}
+
+Analista "*" -- "1" Especialidad : se especializa >
+
+Persona <|-- Jugador
+Persona <|-- Analista
+
+note left of Pais
+  El país y la especialidad
+  se modelan como entidades
+  separadas para evitar
+  redundancia de datos.
+endNote
+
+class Torneo {
+  nombre
+  premioMayor
+}
+
+class Etapa {
+  numeroOrden
+  fechaInicio
+}
+
+Torneo "1" *-- "*" Etapa
+
+class Equipo {
+  nombreEquipo
+}
+
+Pais "1" -- "*" Equipo : < origen
+
+Equipo "1" -- "*" Jugador : < esta en
+Equipo "*" --o "*" Torneo : compite >
+
+Jugador "*" -- "*" Torneo : compite >
+
+class InfoJugadorTorneo {
+  fechaInscripcion
+  rolJugador
+}
+
+(Torneo, Jugador) .. InfoJugadorTorneo
+
+class Patrocinador {
+  marca
+  presupuesto
+}
+
+Jugador "3..7" -- "0..2" Patrocinador : < patrocina
+
+@enduml

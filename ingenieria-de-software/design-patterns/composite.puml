@@ -1,0 +1,36 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 120
+skinparam ranksep 70
+
+class Client
+
+abstract class Component {
+  + operation()
+}
+
+class Composite {
+  + add(c : Component) : void
+  + remove(c : Component) : void
+  + getChild(h : int) : Component
+  + operation()
+}
+
+class Leaf1 {
+  + attribute
+  + operation()
+}
+
+class Leaf2 {
+  - attribute
+  + operation()
+}
+
+Component <-down- Composite
+Component <-down- Leaf1
+Component <-down- Leaf2
+
+Composite "0..*" o-up- "1..*" Component
+
+Client "1..*" -right-> "1..*" Component
+@enduml

@@ -1,0 +1,1 @@
+{"header": ["nro_art", "descripcion", "precio", "cantidad", "Stock_Min", "Stock_Max", "Mes_Ult_Movim", "Fecha_Vto"], "content": [[1, "coca cola", 1500, 5, 5, 100, "AGOSTO", {"year": 28, "month": 10, "day": 26}], [3, "carne", 3000, 4, 4, 40, "AGOSTO", {"year": 16, "month": 9, "day": 26}], [2, "pan", 500, 10, 2, 50, "JUNIO", {"year": 30, "month": 3, "day": 26}]]}

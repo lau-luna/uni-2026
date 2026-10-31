@@ -1,0 +1,117 @@
+@startuml
+
+class PaqueteTuristico {
+  idPaquete
+}
+
+class Ciudad {
+  nombre
+}
+
+class AtraccionTuristica {
+  nombre
+  descripcion
+  costoEstimado
+  edadRecomendada
+}
+
+Ciudad "1" -- "*" AtraccionTuristica : tiene >
+
+PaqueteTuristico "*" -- "1" Ciudad : destino >
+PaqueteTuristico "*" -- "*" AtraccionTuristica : incluye >
+
+class Traslado {
+  costo
+  duracion
+  distancia
+}
+
+PaqueteTuristico "1" -- "1" Traslado : tiene >
+Traslado "*" -- "1" Ciudad : destino >
+
+class InfoTraslado {
+  fechaSalida
+}
+
+InfoTraslado .. (PaqueteTuristico, Traslado)
+
+class Persona {
+  dni
+  nombre
+  apellido
+  direccion
+}
+
+class Alumno {
+  turno
+  curso
+  division
+}
+
+Persona <|-- Alumno
+
+Alumno "1..*" -- "*" PaqueteTuristico
+
+class Colegio {
+  nombre
+  direccion
+  telefono
+}
+
+Colegio "1" -- "*" Alumno : < pertenece
+
+class FichaMedica {
+
+}
+
+class Enfermedad {
+  nombre
+  esCronica
+}
+
+class Medicamento {
+  nombre
+  frecuencia
+}
+
+FichaMedica "1" -- "*" Enfermedad : registra >
+FichaMedica "1" -- "*" Medicamento : detalla >
+
+
+Alumno "1" -- "1" FichaMedica : tiene >
+
+class FormaPago {
+}
+
+class Efectivo  {
+  porcentajeDescuento
+  montoTotalPagado
+  fechaPago
+}
+
+class PlanCuotas {
+  nroPlan
+  fechaInicio
+  fechaFinalizacion
+}
+
+class Cuota {
+  monto
+  fecha
+  estadoCuota : TEstadoCuota
+}
+
+PlanCuotas "1" -- "2..20" Cuota
+
+FormaPago <|-- Efectivo
+FormaPago <|-- PlanCuotas
+
+
+
+enum TEstadoCuota {
+  Pagada
+  Vencida
+  PorVencer
+}
+
+@enduml

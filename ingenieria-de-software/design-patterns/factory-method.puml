@@ -1,0 +1,46 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 120
+skinparam ranksep 70
+
+abstract class Factory {
+  + createProduct()
+}
+
+class ConcreteFactory1 {
+  + createProduct()
+}
+
+class ConcreteFactory2 {
+  + createProduct()
+}
+
+abstract class Product {
+  + attribute
+  + operation()
+}
+
+class ConcreteProduct1 {
+  + attribute
+  + operation()
+}
+
+class ConcreteProduct2 {
+  + attribute
+  + operation()
+}
+
+class Client
+
+Factory <|-down- ConcreteFactory1
+Factory <|-down- ConcreteFactory2
+
+Product <|-down- ConcreteProduct1
+Product <|-down- ConcreteProduct2
+
+ConcreteFactory1 .down.> ConcreteProduct1 : create
+ConcreteFactory2 .down.> ConcreteProduct2 : create
+
+Client .up.> Factory : use
+Client .up.> Product : use
+@enduml

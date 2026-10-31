@@ -1,0 +1,49 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 120
+skinparam ranksep 70
+
+abstract class AbstractMediator {
++ sendPetition(c : Colleague, s : String)
+}
+
+class ConcreteMediator {
+- colleague1 : ConcreteColleague1
+- colleague2 : ConcreteColleague2
+- attribute
++ sendPetition(c : Colleague, s : String)
++ operation()  
+}
+
+abstract class Colleague {
+# mediator : AbstractMediator
+- attribute
++ receivePetition(c : Colleague, s : String)
+}
+
+class ConcreteColleague1 {
++ receivePetition(c : Colleague, s : String)
+}
+
+class ConcreteColleague2 {
++ receivePetition(c : Colleague, s : String)
+}
+
+class Client
+
+AbstractMediator <|-down- ConcreteMediator
+
+Colleague <|-down- ConcreteColleague1
+Colleague <|-down- ConcreteColleague2
+
+Colleague "1" -left-> "1" AbstractMediator : sends petition
+
+ConcreteMediator "1" -right-> "1" ConcreteColleague1 : sends petition
+ConcreteMediator "1" -right-> "1" ConcreteColleague2 : sends petition
+
+Client "1..*" -down-> "1..*" AbstractMediator
+Client "1..*" -down-> "1..*" Colleague
+
+ConcreteColleague1 -[hidden]right- ConcreteMediator
+ConcreteMediator -[hidden]right- ConcreteColleague2
+@enduml

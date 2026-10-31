@@ -1,0 +1,1291 @@
+{
+  "name": "facu",
+  "tables": [
+    {
+      "name": "ejercicio1.producto",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "cod_producto",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "descripcion",
+          "type": "varchar(40)",
+          "nullable": true,
+          "default": "NULL::character varying"
+        },
+        {
+          "name": "precio",
+          "type": "numeric(9,2)",
+          "nullable": true,
+          "default": "NULL::numeric"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "producto_pkey",
+          "def": "CREATE UNIQUE INDEX producto_pkey ON ejercicio1.producto USING btree (cod_producto)",
+          "table": "ejercicio1.producto",
+          "columns": [
+            "cod_producto"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "producto_cod_producto_not_null",
+          "type": "n",
+          "def": "NOT NULL cod_producto",
+          "table": "ejercicio1.producto",
+          "referenced_table": "",
+          "columns": [
+            "cod_producto"
+          ]
+        },
+        {
+          "name": "producto_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (cod_producto)",
+          "table": "ejercicio1.producto",
+          "referenced_table": "",
+          "columns": [
+            "cod_producto"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio1.cliente",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "nro_cliente",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "apellido",
+          "type": "varchar(20)",
+          "nullable": false
+        },
+        {
+          "name": "nombre",
+          "type": "varchar(40)",
+          "nullable": true,
+          "default": "NULL::character varying"
+        },
+        {
+          "name": "direccion",
+          "type": "varchar(30)",
+          "nullable": true,
+          "default": "NULL::character varying"
+        },
+        {
+          "name": "telefono",
+          "type": "varchar(15)",
+          "nullable": true,
+          "default": "NULL::character varying"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "cliente_pkey",
+          "def": "CREATE UNIQUE INDEX cliente_pkey ON ejercicio1.cliente USING btree (nro_cliente)",
+          "table": "ejercicio1.cliente",
+          "columns": [
+            "nro_cliente"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "cliente_apellido_not_null",
+          "type": "n",
+          "def": "NOT NULL apellido",
+          "table": "ejercicio1.cliente",
+          "referenced_table": "",
+          "columns": [
+            "apellido"
+          ]
+        },
+        {
+          "name": "cliente_nro_cliente_not_null",
+          "type": "n",
+          "def": "NOT NULL nro_cliente",
+          "table": "ejercicio1.cliente",
+          "referenced_table": "",
+          "columns": [
+            "nro_cliente"
+          ]
+        },
+        {
+          "name": "cliente_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (nro_cliente)",
+          "table": "ejercicio1.cliente",
+          "referenced_table": "",
+          "columns": [
+            "nro_cliente"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio1.factura",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "nro_factura",
+          "type": "varchar(12)",
+          "nullable": false
+        },
+        {
+          "name": "fecha",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "nro_cliente",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "monto",
+          "type": "numeric(9,2)",
+          "nullable": true,
+          "default": "NULL::numeric"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "factura_pkey",
+          "def": "CREATE UNIQUE INDEX factura_pkey ON ejercicio1.factura USING btree (nro_factura)",
+          "table": "ejercicio1.factura",
+          "columns": [
+            "nro_factura"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "factura_fecha_not_null",
+          "type": "n",
+          "def": "NOT NULL fecha",
+          "table": "ejercicio1.factura",
+          "referenced_table": "",
+          "columns": [
+            "fecha"
+          ]
+        },
+        {
+          "name": "factura_nro_cliente_not_null",
+          "type": "n",
+          "def": "NOT NULL nro_cliente",
+          "table": "ejercicio1.factura",
+          "referenced_table": "",
+          "columns": [
+            "nro_cliente"
+          ]
+        },
+        {
+          "name": "factura_nro_factura_not_null",
+          "type": "n",
+          "def": "NOT NULL nro_factura",
+          "table": "ejercicio1.factura",
+          "referenced_table": "",
+          "columns": [
+            "nro_factura"
+          ]
+        },
+        {
+          "name": "fk_factura_1",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (nro_cliente) REFERENCES ejercicio1.cliente(nro_cliente)",
+          "table": "ejercicio1.factura",
+          "referenced_table": "cliente",
+          "columns": [
+            "nro_cliente"
+          ],
+          "referenced_columns": [
+            "nro_cliente"
+          ]
+        },
+        {
+          "name": "factura_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (nro_factura)",
+          "table": "ejercicio1.factura",
+          "referenced_table": "",
+          "columns": [
+            "nro_factura"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio1.itemfactura",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "nro_factura",
+          "type": "varchar(12)",
+          "nullable": false
+        },
+        {
+          "name": "cod_producto",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "cantidad",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "precio",
+          "type": "numeric(9,2)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "itemfactura_pkey",
+          "def": "CREATE UNIQUE INDEX itemfactura_pkey ON ejercicio1.itemfactura USING btree (nro_factura, cod_producto)",
+          "table": "ejercicio1.itemfactura",
+          "columns": [
+            "nro_factura",
+            "cod_producto"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "itemfactura_cantidad_not_null",
+          "type": "n",
+          "def": "NOT NULL cantidad",
+          "table": "ejercicio1.itemfactura",
+          "referenced_table": "",
+          "columns": [
+            "cantidad"
+          ]
+        },
+        {
+          "name": "itemfactura_cod_producto_not_null",
+          "type": "n",
+          "def": "NOT NULL cod_producto",
+          "table": "ejercicio1.itemfactura",
+          "referenced_table": "",
+          "columns": [
+            "cod_producto"
+          ]
+        },
+        {
+          "name": "itemfactura_nro_factura_not_null",
+          "type": "n",
+          "def": "NOT NULL nro_factura",
+          "table": "ejercicio1.itemfactura",
+          "referenced_table": "",
+          "columns": [
+            "nro_factura"
+          ]
+        },
+        {
+          "name": "itemfactura_precio_not_null",
+          "type": "n",
+          "def": "NOT NULL precio",
+          "table": "ejercicio1.itemfactura",
+          "referenced_table": "",
+          "columns": [
+            "precio"
+          ]
+        },
+        {
+          "name": "fk_itemfactura_1",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (cod_producto) REFERENCES ejercicio1.producto(cod_producto)",
+          "table": "ejercicio1.itemfactura",
+          "referenced_table": "producto",
+          "columns": [
+            "cod_producto"
+          ],
+          "referenced_columns": [
+            "cod_producto"
+          ]
+        },
+        {
+          "name": "fk_itemfactura_2",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (nro_factura) REFERENCES ejercicio1.factura(nro_factura)",
+          "table": "ejercicio1.itemfactura",
+          "referenced_table": "factura",
+          "columns": [
+            "nro_factura"
+          ],
+          "referenced_columns": [
+            "nro_factura"
+          ]
+        },
+        {
+          "name": "itemfactura_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (nro_factura, cod_producto)",
+          "table": "ejercicio1.itemfactura",
+          "referenced_table": "",
+          "columns": [
+            "nro_factura",
+            "cod_producto"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio2.club",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "NRO_CLUB",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "NOMBRE_CLUB",
+          "type": "varchar(30)",
+          "nullable": false
+        },
+        {
+          "name": "PRESUPUESTO",
+          "type": "integer",
+          "nullable": true
+        }
+      ],
+      "constraints": [
+        {
+          "name": "club_NOMBRE_CLUB_not_null",
+          "type": "n",
+          "def": "NOT NULL \"NOMBRE_CLUB\"",
+          "table": "ejercicio2.club",
+          "referenced_table": "",
+          "columns": [
+            "NOMBRE_CLUB"
+          ]
+        },
+        {
+          "name": "club_NRO_CLUB_not_null",
+          "type": "n",
+          "def": "NOT NULL \"NRO_CLUB\"",
+          "table": "ejercicio2.club",
+          "referenced_table": "",
+          "columns": [
+            "NRO_CLUB"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio2.competencia",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "NRO_COMPETENCIA",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "DESCRIPCION",
+          "type": "varchar(30)",
+          "nullable": false
+        },
+        {
+          "name": "CATEGORIA",
+          "type": "integer",
+          "nullable": false
+        }
+      ],
+      "constraints": [
+        {
+          "name": "competencia_CATEGORIA_not_null",
+          "type": "n",
+          "def": "NOT NULL \"CATEGORIA\"",
+          "table": "ejercicio2.competencia",
+          "referenced_table": "",
+          "columns": [
+            "CATEGORIA"
+          ]
+        },
+        {
+          "name": "competencia_DESCRIPCION_not_null",
+          "type": "n",
+          "def": "NOT NULL \"DESCRIPCION\"",
+          "table": "ejercicio2.competencia",
+          "referenced_table": "",
+          "columns": [
+            "DESCRIPCION"
+          ]
+        },
+        {
+          "name": "competencia_NRO_COMPETENCIA_not_null",
+          "type": "n",
+          "def": "NOT NULL \"NRO_COMPETENCIA\"",
+          "table": "ejercicio2.competencia",
+          "referenced_table": "",
+          "columns": [
+            "NRO_COMPETENCIA"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio2.participacion",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "NRO_CLUB",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "NRO_COMPETENCIA",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "PUESTO",
+          "type": "varchar(20)",
+          "nullable": true
+        }
+      ],
+      "constraints": [
+        {
+          "name": "participacion_NRO_CLUB_not_null",
+          "type": "n",
+          "def": "NOT NULL \"NRO_CLUB\"",
+          "table": "ejercicio2.participacion",
+          "referenced_table": "",
+          "columns": [
+            "NRO_CLUB"
+          ]
+        },
+        {
+          "name": "participacion_NRO_COMPETENCIA_not_null",
+          "type": "n",
+          "def": "NOT NULL \"NRO_COMPETENCIA\"",
+          "table": "ejercicio2.participacion",
+          "referenced_table": "",
+          "columns": [
+            "NRO_COMPETENCIA"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio3.alumno",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "nro_alumno",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "dni",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "nombre",
+          "type": "varchar(45)",
+          "nullable": false
+        },
+        {
+          "name": "apellido",
+          "type": "varchar(45)",
+          "nullable": false
+        },
+        {
+          "name": "sexo",
+          "type": "varchar(20)",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "alumno_pkey",
+          "def": "CREATE UNIQUE INDEX alumno_pkey ON ejercicio3.alumno USING btree (nro_alumno)",
+          "table": "ejercicio3.alumno",
+          "columns": [
+            "nro_alumno"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "alumno_apellido_not_null",
+          "type": "n",
+          "def": "NOT NULL apellido",
+          "table": "ejercicio3.alumno",
+          "referenced_table": "",
+          "columns": [
+            "apellido"
+          ]
+        },
+        {
+          "name": "alumno_dni_not_null",
+          "type": "n",
+          "def": "NOT NULL dni",
+          "table": "ejercicio3.alumno",
+          "referenced_table": "",
+          "columns": [
+            "dni"
+          ]
+        },
+        {
+          "name": "alumno_nombre_not_null",
+          "type": "n",
+          "def": "NOT NULL nombre",
+          "table": "ejercicio3.alumno",
+          "referenced_table": "",
+          "columns": [
+            "nombre"
+          ]
+        },
+        {
+          "name": "alumno_nro_alumno_not_null",
+          "type": "n",
+          "def": "NOT NULL nro_alumno",
+          "table": "ejercicio3.alumno",
+          "referenced_table": "",
+          "columns": [
+            "nro_alumno"
+          ]
+        },
+        {
+          "name": "alumno_sexo_not_null",
+          "type": "n",
+          "def": "NOT NULL sexo",
+          "table": "ejercicio3.alumno",
+          "referenced_table": "",
+          "columns": [
+            "sexo"
+          ]
+        },
+        {
+          "name": "alumno_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (nro_alumno)",
+          "table": "ejercicio3.alumno",
+          "referenced_table": "",
+          "columns": [
+            "nro_alumno"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio3.taller",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "codigo_taller",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "nombre",
+          "type": "varchar(45)",
+          "nullable": false
+        },
+        {
+          "name": "duracion",
+          "type": "integer",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "taller_pkey",
+          "def": "CREATE UNIQUE INDEX taller_pkey ON ejercicio3.taller USING btree (codigo_taller)",
+          "table": "ejercicio3.taller",
+          "columns": [
+            "codigo_taller"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "taller_codigo_taller_not_null",
+          "type": "n",
+          "def": "NOT NULL codigo_taller",
+          "table": "ejercicio3.taller",
+          "referenced_table": "",
+          "columns": [
+            "codigo_taller"
+          ]
+        },
+        {
+          "name": "taller_duracion_not_null",
+          "type": "n",
+          "def": "NOT NULL duracion",
+          "table": "ejercicio3.taller",
+          "referenced_table": "",
+          "columns": [
+            "duracion"
+          ]
+        },
+        {
+          "name": "taller_nombre_not_null",
+          "type": "n",
+          "def": "NOT NULL nombre",
+          "table": "ejercicio3.taller",
+          "referenced_table": "",
+          "columns": [
+            "nombre"
+          ]
+        },
+        {
+          "name": "taller_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (codigo_taller)",
+          "table": "ejercicio3.taller",
+          "referenced_table": "",
+          "columns": [
+            "codigo_taller"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio3.realiza",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "nro_alumno",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "codigo_taller",
+          "type": "integer",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "realiza_pkey",
+          "def": "CREATE UNIQUE INDEX realiza_pkey ON ejercicio3.realiza USING btree (nro_alumno, codigo_taller)",
+          "table": "ejercicio3.realiza",
+          "columns": [
+            "nro_alumno",
+            "codigo_taller"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "realiza_codigo_taller_not_null",
+          "type": "n",
+          "def": "NOT NULL codigo_taller",
+          "table": "ejercicio3.realiza",
+          "referenced_table": "",
+          "columns": [
+            "codigo_taller"
+          ]
+        },
+        {
+          "name": "realiza_nro_alumno_not_null",
+          "type": "n",
+          "def": "NOT NULL nro_alumno",
+          "table": "ejercicio3.realiza",
+          "referenced_table": "",
+          "columns": [
+            "nro_alumno"
+          ]
+        },
+        {
+          "name": "fk_realiza_nro_alumno",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (nro_alumno) REFERENCES ejercicio3.alumno(nro_alumno)",
+          "table": "ejercicio3.realiza",
+          "referenced_table": "alumno",
+          "columns": [
+            "nro_alumno"
+          ],
+          "referenced_columns": [
+            "nro_alumno"
+          ]
+        },
+        {
+          "name": "fk_realiza_codigo_taller",
+          "type": "FOREIGN KEY",
+          "def": "FOREIGN KEY (codigo_taller) REFERENCES ejercicio3.taller(codigo_taller)",
+          "table": "ejercicio3.realiza",
+          "referenced_table": "taller",
+          "columns": [
+            "codigo_taller"
+          ],
+          "referenced_columns": [
+            "codigo_taller"
+          ]
+        },
+        {
+          "name": "realiza_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (nro_alumno, codigo_taller)",
+          "table": "ejercicio3.realiza",
+          "referenced_table": "",
+          "columns": [
+            "nro_alumno",
+            "codigo_taller"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio4.deporte",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "cod_deporte",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "denominacion",
+          "type": "varchar(45)",
+          "nullable": false,
+          "default": "''::character varying"
+        }
+      ],
+      "indexes": [
+        {
+          "name": "deporte_pkey",
+          "def": "CREATE UNIQUE INDEX deporte_pkey ON ejercicio4.deporte USING btree (cod_deporte)",
+          "table": "ejercicio4.deporte",
+          "columns": [
+            "cod_deporte"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "deporte_cod_deporte_not_null",
+          "type": "n",
+          "def": "NOT NULL cod_deporte",
+          "table": "ejercicio4.deporte",
+          "referenced_table": "",
+          "columns": [
+            "cod_deporte"
+          ]
+        },
+        {
+          "name": "deporte_denominacion_not_null",
+          "type": "n",
+          "def": "NOT NULL denominacion",
+          "table": "ejercicio4.deporte",
+          "referenced_table": "",
+          "columns": [
+            "denominacion"
+          ]
+        },
+        {
+          "name": "deporte_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (cod_deporte)",
+          "table": "ejercicio4.deporte",
+          "referenced_table": "",
+          "columns": [
+            "cod_deporte"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio4.competidor",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "nro_competidor",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "pais",
+          "type": "varchar(25)",
+          "nullable": false,
+          "default": "''::character varying"
+        },
+        {
+          "name": "anio",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "nombre",
+          "type": "varchar(45)",
+          "nullable": false,
+          "default": "''::character varying"
+        },
+        {
+          "name": "cod_deporte",
+          "type": "integer",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "competidor_pkey",
+          "def": "CREATE UNIQUE INDEX competidor_pkey ON ejercicio4.competidor USING btree (nro_competidor)",
+          "table": "ejercicio4.competidor",
+          "columns": [
+            "nro_competidor"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "competidor_anio_not_null",
+          "type": "n",
+          "def": "NOT NULL anio",
+          "table": "ejercicio4.competidor",
+          "referenced_table": "",
+          "columns": [
+            "anio"
+          ]
+        },
+        {
+          "name": "competidor_cod_deporte_not_null",
+          "type": "n",
+          "def": "NOT NULL cod_deporte",
+          "table": "ejercicio4.competidor",
+          "referenced_table": "",
+          "columns": [
+            "cod_deporte"
+          ]
+        },
+        {
+          "name": "competidor_nombre_not_null",
+          "type": "n",
+          "def": "NOT NULL nombre",
+          "table": "ejercicio4.competidor",
+          "referenced_table": "",
+          "columns": [
+            "nombre"
+          ]
+        },
+        {
+          "name": "competidor_nro_competidor_not_null",
+          "type": "n",
+          "def": "NOT NULL nro_competidor",
+          "table": "ejercicio4.competidor",
+          "referenced_table": "",
+          "columns": [
+            "nro_competidor"
+          ]
+        },
+        {
+          "name": "competidor_pais_not_null",
+          "type": "n",
+          "def": "NOT NULL pais",
+          "table": "ejercicio4.competidor",
+          "referenced_table": "",
+          "columns": [
+            "pais"
+          ]
+        },
+        {
+          "name": "competidor_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (nro_competidor)",
+          "table": "ejercicio4.competidor",
+          "referenced_table": "",
+          "columns": [
+            "nro_competidor"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio4.medalla",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "pais",
+          "type": "varchar(20)",
+          "nullable": false,
+          "default": "''::character varying"
+        },
+        {
+          "name": "tipo_medalla",
+          "type": "varchar(20)",
+          "nullable": false,
+          "default": "''::character varying"
+        },
+        {
+          "name": "anio",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "cantidad",
+          "type": "integer",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "medalla_pkey",
+          "def": "CREATE UNIQUE INDEX medalla_pkey ON ejercicio4.medalla USING btree (pais, tipo_medalla, anio)",
+          "table": "ejercicio4.medalla",
+          "columns": [
+            "pais",
+            "tipo_medalla",
+            "anio"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "medalla_anio_not_null",
+          "type": "n",
+          "def": "NOT NULL anio",
+          "table": "ejercicio4.medalla",
+          "referenced_table": "",
+          "columns": [
+            "anio"
+          ]
+        },
+        {
+          "name": "medalla_cantidad_not_null",
+          "type": "n",
+          "def": "NOT NULL cantidad",
+          "table": "ejercicio4.medalla",
+          "referenced_table": "",
+          "columns": [
+            "cantidad"
+          ]
+        },
+        {
+          "name": "medalla_pais_not_null",
+          "type": "n",
+          "def": "NOT NULL pais",
+          "table": "ejercicio4.medalla",
+          "referenced_table": "",
+          "columns": [
+            "pais"
+          ]
+        },
+        {
+          "name": "medalla_tipo_medalla_not_null",
+          "type": "n",
+          "def": "NOT NULL tipo_medalla",
+          "table": "ejercicio4.medalla",
+          "referenced_table": "",
+          "columns": [
+            "tipo_medalla"
+          ]
+        },
+        {
+          "name": "medalla_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (pais, tipo_medalla, anio)",
+          "table": "ejercicio4.medalla",
+          "referenced_table": "",
+          "columns": [
+            "pais",
+            "tipo_medalla",
+            "anio"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio4.competicion",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "pais",
+          "type": "varchar(25)",
+          "nullable": false,
+          "default": "''::character varying"
+        },
+        {
+          "name": "cod_deporte",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "anio",
+          "type": "integer",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        {
+          "name": "competicion_pkey",
+          "def": "CREATE UNIQUE INDEX competicion_pkey ON ejercicio4.competicion USING btree (pais, cod_deporte, anio)",
+          "table": "ejercicio4.competicion",
+          "columns": [
+            "pais",
+            "cod_deporte",
+            "anio"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "competicion_anio_not_null",
+          "type": "n",
+          "def": "NOT NULL anio",
+          "table": "ejercicio4.competicion",
+          "referenced_table": "",
+          "columns": [
+            "anio"
+          ]
+        },
+        {
+          "name": "competicion_cod_deporte_not_null",
+          "type": "n",
+          "def": "NOT NULL cod_deporte",
+          "table": "ejercicio4.competicion",
+          "referenced_table": "",
+          "columns": [
+            "cod_deporte"
+          ]
+        },
+        {
+          "name": "competicion_pais_not_null",
+          "type": "n",
+          "def": "NOT NULL pais",
+          "table": "ejercicio4.competicion",
+          "referenced_table": "",
+          "columns": [
+            "pais"
+          ]
+        },
+        {
+          "name": "competicion_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (pais, cod_deporte, anio)",
+          "table": "ejercicio4.competicion",
+          "referenced_table": "",
+          "columns": [
+            "pais",
+            "cod_deporte",
+            "anio"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ejercicio4.articulo",
+      "type": "BASE TABLE",
+      "columns": [
+        {
+          "name": "n_art",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "descripcion",
+          "type": "varchar(100)",
+          "nullable": false
+        },
+        {
+          "name": "precio",
+          "type": "real",
+          "nullable": false
+        },
+        {
+          "name": "cantidad",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "stock_min",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "stock_max",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "mes_ult_movim",
+          "type": "varchar(15)",
+          "nullable": true
+        },
+        {
+          "name": "fecha_vto",
+          "type": "date",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "name": "articulo_pkey",
+          "def": "CREATE UNIQUE INDEX articulo_pkey ON ejercicio4.articulo USING btree (n_art)",
+          "table": "ejercicio4.articulo",
+          "columns": [
+            "n_art"
+          ]
+        }
+      ],
+      "constraints": [
+        {
+          "name": "articulo_cantidad_not_null",
+          "type": "n",
+          "def": "NOT NULL cantidad",
+          "table": "ejercicio4.articulo",
+          "referenced_table": "",
+          "columns": [
+            "cantidad"
+          ]
+        },
+        {
+          "name": "articulo_descripcion_not_null",
+          "type": "n",
+          "def": "NOT NULL descripcion",
+          "table": "ejercicio4.articulo",
+          "referenced_table": "",
+          "columns": [
+            "descripcion"
+          ]
+        },
+        {
+          "name": "articulo_n_art_not_null",
+          "type": "n",
+          "def": "NOT NULL n_art",
+          "table": "ejercicio4.articulo",
+          "referenced_table": "",
+          "columns": [
+            "n_art"
+          ]
+        },
+        {
+          "name": "articulo_precio_not_null",
+          "type": "n",
+          "def": "NOT NULL precio",
+          "table": "ejercicio4.articulo",
+          "referenced_table": "",
+          "columns": [
+            "precio"
+          ]
+        },
+        {
+          "name": "stock_min_max",
+          "type": "CHECK",
+          "def": "CHECK ((stock_min \u003c stock_max))",
+          "table": "ejercicio4.articulo",
+          "referenced_table": "",
+          "columns": [
+            "stock_min",
+            "stock_max"
+          ]
+        },
+        {
+          "name": "valid_price",
+          "type": "CHECK",
+          "def": "CHECK (((precio \u003e (0)::double precision) AND (precio \u003c (9999)::double precision)))",
+          "table": "ejercicio4.articulo",
+          "referenced_table": "",
+          "columns": [
+            "precio"
+          ]
+        },
+        {
+          "name": "articulo_pkey",
+          "type": "PRIMARY KEY",
+          "def": "PRIMARY KEY (n_art)",
+          "table": "ejercicio4.articulo",
+          "referenced_table": "",
+          "columns": [
+            "n_art"
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "table": "ejercicio1.factura",
+      "columns": [
+        "nro_cliente"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "ejercicio1.cliente",
+      "parent_columns": [
+        "nro_cliente"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (nro_cliente) REFERENCES ejercicio1.cliente(nro_cliente)"
+    },
+    {
+      "table": "ejercicio1.itemfactura",
+      "columns": [
+        "cod_producto"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "ejercicio1.producto",
+      "parent_columns": [
+        "cod_producto"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (cod_producto) REFERENCES ejercicio1.producto(cod_producto)"
+    },
+    {
+      "table": "ejercicio1.itemfactura",
+      "columns": [
+        "nro_factura"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "ejercicio1.factura",
+      "parent_columns": [
+        "nro_factura"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (nro_factura) REFERENCES ejercicio1.factura(nro_factura)"
+    },
+    {
+      "table": "ejercicio3.realiza",
+      "columns": [
+        "nro_alumno"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "ejercicio3.alumno",
+      "parent_columns": [
+        "nro_alumno"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (nro_alumno) REFERENCES ejercicio3.alumno(nro_alumno)"
+    },
+    {
+      "table": "ejercicio3.realiza",
+      "columns": [
+        "codigo_taller"
+      ],
+      "cardinality": "zero_or_more",
+      "parent_table": "ejercicio3.taller",
+      "parent_columns": [
+        "codigo_taller"
+      ],
+      "parent_cardinality": "exactly_one",
+      "def": "FOREIGN KEY (codigo_taller) REFERENCES ejercicio3.taller(codigo_taller)"
+    }
+  ],
+  "driver": {
+    "name": "postgres",
+    "database_version": "PostgreSQL 18.6 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 16.2.1 20260810, 64-bit",
+    "meta": {
+      "current_schema": "public",
+      "search_paths": [
+        "postgres",
+        "public"
+      ],
+      "dict": {
+        "Functions": "Stored procedures and functions"
+      }
+    }
+  }
+}

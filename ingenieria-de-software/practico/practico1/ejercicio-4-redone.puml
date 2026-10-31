@@ -1,0 +1,106 @@
+@startuml
+
+abstract class Persona {
+  dni
+  nombre
+  apellido
+  direccion
+  celular
+}
+
+abstract class Empleado {
+  nroEmpleado
+} 
+
+Persona <|-- Empleado
+
+
+class PersonalImprenta {
+  montoAdicional
+}
+
+Empleado <|-- PersonalImprenta
+
+class Diseñador {
+  dedicacion:TDedicacion
+}
+
+Empleado <|-- Diseñador
+
+class Correctora {
+  tipoTrabajo:TTrabajo
+}
+
+Empleado <|-- Correctora
+
+
+
+class Equipamiento {
+  fechaCompra
+  fechaVenceGarantia
+}
+
+class Marca {
+  nombreMarca
+}
+
+Equipamiento "*" -- "1" Marca : tiene >
+
+class Insumo {
+  tipo:TInsumo
+  cantidadStock
+  fechaUltimaCompra
+}
+
+Equipamiento "*" -- "*" Insumo : usa >
+
+class Obra {
+  titulo
+  ISBN
+}
+
+class Edicion {
+  nroEdicion
+  año
+}
+
+Edicion "0..*" -- "1" Obra : edicion >
+
+class Autor {
+  email
+}
+
+Persona <|-- Autor
+Obra "*" -- "1" Autor : < autor principal
+Obra "0..*" -- "*" Autor : < coautor
+
+
+Obra "*" -- "1" Correctora : < corrige
+
+Diseñador "2" -- "*" Obra : edicion grafica >
+
+Equipamiento "*" -- "*" PersonalImprenta : < maneja
+
+class Colocacion {
+  fechaColocacion
+}
+
+Colocacion .. (Equipamiento, Insumo)
+
+enum TInsumo {
+  Hoja
+  Tapa
+  Toner
+}
+
+enum TDedicacion {
+  MediaJornada
+  JornadaCompleta
+}
+
+enum TTrabajo {
+  Remoto
+  Presencial
+}
+
+@enduml

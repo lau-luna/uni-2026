@@ -1,0 +1,76 @@
+@startuml
+
+class Empleado {
+  nroLegajo
+  dni
+  nombre
+  apellido
+  direccion
+  categoria : TCategoria
+}
+
+class Telefono {
+  numero
+  tipo : TTel
+}
+
+Empleado "1" -- "2" Telefono : tiene >
+
+note left of Telefono
+  Al menos uno
+  de los teléfonos
+  debe ser Fijo
+endNote
+
+class Secretaria {
+  nombre
+  direccion
+  presupuesto
+}
+
+class SSalud {
+}
+
+class SMedioAmbiente {
+}
+
+class SVivienda {
+}
+
+class SIntendencia {
+}
+
+class SGobierno {
+}
+
+Secretaria <|-- SSalud
+Secretaria <|-- SMedioAmbiente
+Secretaria <|-- SVivienda
+Secretaria <|-- SIntendencia
+Secretaria <|-- SGobierno
+
+Empleado "*" -- "1" Secretaria : depende >
+
+class Periodo {
+  fechaIncio
+  fechaFin
+}
+
+(Empleado, Secretaria) .. Periodo
+
+class Intendente {}
+
+Intendente "1" -- "1" SGobierno : supervisor general >
+
+enum TCategoria {
+  A
+  B
+  C
+}
+
+enum TTel {
+  Fijo
+  Celular
+}
+
+@enduml

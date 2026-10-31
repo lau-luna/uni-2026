@@ -1,0 +1,106 @@
+@startuml
+
+class Servicio {
+  nombre
+  tipo : TServicio
+  tarifaBasica
+  cantidadAbonadosTotales
+}
+
+class Canal {
+  nombre
+}
+
+
+class Programa {
+  nombre
+}
+
+
+class Emision {
+  dia : TDia
+  horario
+}
+
+Canal "1" -- "*" Programa : emite >
+(Canal, Programa) .. Emision
+
+Servicio "1" -- "*" Canal : tiene >
+
+class Localidad {
+  nombre
+  cantidadAbonados
+  tarifaCobro
+}
+
+Localidad "*" -- "*" Servicio : ofrece >
+Localidad "1" -- "*" Abonado : < reside
+
+class Abonado {
+  dni
+  nombre
+  apellido
+  direccion
+  telefono
+  fechaConexion
+}
+
+Servicio "*" -- "*" Abonado : < contrata
+
+class AbonadoComun {
+
+}
+
+class AbonadoJubilado {
+  porcentajeDescuento
+}
+
+Abonado <|-- AbonadoComun
+Abonado <|-- AbonadoJubilado
+
+class MesAdeudado {
+  idDeuda
+  mes : TMes
+  montoAdeudado
+}
+
+MesAdeudado "*" -- "1" Abonado : < debe
+
+class Año {
+  año
+}
+
+MesAdeudado "*" -- "1" Año
+
+enum TServicio {
+  Basico
+  HD
+  Premium
+}
+
+enum TDia {
+  Domingo
+  Lunes
+  Martes
+  Miercoles
+  Jueves
+  Viernes
+  Sabado
+}
+
+enum Tmes {
+  Enero
+  Febrero
+  Marzo
+  Abril
+  Mayo
+  Junio
+  Julio
+  Agosto
+  Septiembre
+  Octubre
+  Noviembre
+  Diciembre
+}
+
+@enduml
